@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface VideoOperations {
 
-    List<Video> search(String query, Integer page, Integer perPage, VideosSortMethod sortBy, String userId);
+    Videos search(String query, Integer page, Integer perPage, VideosSortMethod sortBy, String userId);
 }

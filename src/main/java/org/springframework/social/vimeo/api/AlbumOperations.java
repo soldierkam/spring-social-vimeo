@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface AlbumOperations {
 
-    String addToWatchLater(String videoId);
+    void addToWatchLater(String videoId);
 
     void removerFromWatchLater(String videoId);
 
-    List<Video> watchLater(Integer pageNumber, Integer perPage);
+    Videos watchLater(Integer pageNumber, Integer perPage);
 
     void deleteAlbum(String albumId);
 
@@ -26,11 +26,11 @@ public interface AlbumOperations {
 
     void changePassword(String albumId, String password);
 
-    List<Album> all(Integer pageNumber, Integer perPage, String userId, AlbumsSortMethod sortBy);
+    Albums all(Integer pageNumber, Integer perPage, String userId, AlbumsSortMethod sortBy);
 
     void addVideo(String albumId, String videoId);
 
     void removeVideo(String albumId, String videoId);
 
-    List<Video> videos(String albumId, Integer page, Integer perPage, String password);
+    Videos videos(String albumId, Integer page, Integer perPage, String password);
 }

@@ -9,6 +9,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.springframework.social.vimeo.api.Image;
 import org.springframework.social.vimeo.api.Owner;
+import org.springframework.social.vimeo.api.Privacy;
 
 
 /**
@@ -20,20 +21,26 @@ import org.springframework.social.vimeo.api.Owner;
 abstract public class VideoMixin {
 
     @JsonCreator
-    VideoMixin(@JsonProperty("allow_adds")
+    VideoMixin(
+            @JsonDeserialize(using = BooleanJsonDeserializer.class)
+            @JsonProperty("allow_adds")
             Boolean allowAdds,
                @JsonProperty("embed_privacy")
                String embedPrivacy,
                @JsonProperty("id")
                String id,
+               @JsonDeserialize(using = BooleanJsonDeserializer.class)
                @JsonProperty("is_hd")
                Boolean hd,
+               @JsonDeserialize(using = BooleanJsonDeserializer.class)
                @JsonProperty("is_transcoding")
                Boolean transcoding,
                @JsonProperty("license")
-               String license,
+               @JsonDeserialize(using = BooleanJsonDeserializer.class)
+               Boolean license,
+               @JsonDeserialize(using = PrivacyJsonDeserilizer.class)
                @JsonProperty("privacy")
-               String privacy,
+               Privacy privacy,
                @JsonProperty("title")
                String title,
                @JsonProperty("description")

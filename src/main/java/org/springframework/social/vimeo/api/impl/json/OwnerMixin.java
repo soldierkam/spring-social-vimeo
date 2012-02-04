@@ -25,10 +25,13 @@ abstract public class OwnerMixin {
             @JsonProperty("display_name")
             String displayName,
             @JsonProperty("is_plus")
+            @JsonDeserialize(using = BooleanJsonDeserializer.class)
             Boolean plus,
             @JsonProperty("is_pro")
+            @JsonDeserialize(using = BooleanJsonDeserializer.class)
             Boolean pro,
             @JsonProperty("is_staff")
+            @JsonDeserialize(using = BooleanJsonDeserializer.class)
             Boolean staff,
             @JsonProperty("profileurl")
             URL profileUrl,

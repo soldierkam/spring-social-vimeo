@@ -1,76 +1,131 @@
 package org.springframework.social.vimeo.api.impl;
 
-import org.springframework.social.vimeo.api.Album;
-import org.springframework.social.vimeo.api.AlbumOperations;
-import org.springframework.social.vimeo.api.AlbumsSortMethod;
-import org.springframework.social.vimeo.api.Video;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.social.vimeo.api.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * User: soldier
  * Date: 2/3/12
  * Time: 6:12 PM
  */
-public class AlbumTemplate implements AlbumOperations{
+public class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations{
+
+    private final static VimeoMethod WATCH_LATER_LIST = new VimeoMethodImpl("vimeo.albums.getWatchLater", "videos");
+    private final static VimeoMethod WATCH_LATER_ADD = new VimeoMethodImpl("vimeo.albums.addToWatchLater");
+    private final static VimeoMethod WATCH_LATER_REMOVE = new VimeoMethodImpl("vimeo.albums.removeFromWatchLater");
+    private final static VimeoMethod DELETE = new VimeoMethodImpl("vimeo.albums.delete");
+    private final static VimeoMethod CREATE = new VimeoMethodImpl("vimeo.albums.create", "album");
+    private final static VimeoMethod DESCRIPTION = new VimeoMethodImpl("vimeo.albums.setDescription");
+    private final static VimeoMethod TITLE = new VimeoMethodImpl("vimeo.albums.setTitle");
+    private final static VimeoMethod PASSWD = new VimeoMethodImpl("vimeo.albums.setPassword");
+    private final static VimeoMethod LIST = new VimeoMethodImpl("vimeo.albums.getAll", "albums");
+    private final static VimeoMethod VIDEO_ADD = new VimeoMethodImpl("vimeo.albums.addVideo");
+    private final static VimeoMethod VIDEO_DETACH = new VimeoMethodImpl("vimeo.albums.removeVideo");
+    private final static VimeoMethod VIDEO_LIST = new VimeoMethodImpl("vimeo.albums.getVideos", "videos");
+
+    public AlbumTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
+        super(restTemplate, mapper);
+    }
+
     @Override
-    public String addToWatchLater(String videoId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void addToWatchLater(String videoId) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        doMethod(WATCH_LATER_ADD, params.build());
     }
 
     @Override
     public void removerFromWatchLater(String videoId) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        doMethod(WATCH_LATER_REMOVE, params.build());
     }
 
     @Override
-    public List<Video> watchLater(Integer pageNumber, Integer perPage) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Videos watchLater(Integer pageNumber, Integer perPage) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.addIfNotNull("page", pageNumber);
+        params.addIfNotNull("per_page", perPage);
+        return getObject(WATCH_LATER_LIST, params.build(), Videos.class);
     }
 
     @Override
     public void deleteAlbum(String albumId) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("album_id", albumId);
+        doMethod(DELETE, params.build());
     }
 
     @Override
     public String createAlbum(String videoAsAlbumsThumbnail, Collection<String> videosIds, String title, String description) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.addIfNotNull("description", description);
+        params.addIfNotNull("videos", videosIds);
+        params.add("title", title);
+        params.add("video_id", videoAsAlbumsThumbnail);
+        return doAction(CREATE, params.build());
     }
 
     @Override
     public void changeDescription(String albumId, String description) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("album_id", albumId);
+        params.add("description", description);
+        doMethod(DESCRIPTION, params.build());
     }
 
     @Override
     public void changeTitle(String albumId, String title) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("album_id", albumId);
+        params.add("title", title);
+        doMethod(TITLE, params.build());
     }
 
     @Override
     public void changePassword(String albumId, String password) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("album_id", albumId);
+        params.add("password", password);
+        doMethod(PASSWD, params.build());
     }
 
     @Override
-    public List<Album> all(Integer pageNumber, Integer perPage, String userId, AlbumsSortMethod sortBy) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Albums all(Integer pageNumber, Integer perPage, String userId, AlbumsSortMethod sortBy) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.addIfNotNull("page", pageNumber);
+        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("sort", sortBy);
+        params.add("user_id", userId);
+        return getObject(LIST, params.build(), Albums.class);
     }
 
     @Override
     public void addVideo(String albumId, String videoId) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("album_id", albumId);
+        params.add("videoId", videoId);
+        doMethod(VIDEO_ADD, params.build());
     }
 
     @Override
     public void removeVideo(String albumId, String videoId) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("album_id", albumId);
+        params.add("videoId", videoId);
+        doMethod(VIDEO_DETACH, params.build());
     }
 
     @Override
-    public List<Video> videos(String albumId, Integer page, Integer perPage, String password) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Videos videos(String albumId, Integer page, Integer perPage, String password) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.addIfNotNull("page", page);
+        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("password", password);
+        params.add("album_id", albumId);
+        return getObject(VIDEO_LIST, params.build(), Videos.class);
     }
 }

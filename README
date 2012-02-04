@@ -1,0 +1,17 @@
+<repositories>
+    <repository>
+        <id>soldierkam-snapshots-github</id>
+	<url>https://github.com/soldierkam/mvn-repo/raw/master/snapshots</url>
+    </repository>
+    <repository>
+        <id>soldierkam-github</id>
+	<url>https://github.com/soldierkam/mvn-repo/raw/master/releases</url>
+    </repository>
+</repositories>
+
+
+<dependency>
+    <groupId>spring-social</groupId>
+    <artifactId>spring-social-vimeo</artifactId>
+    <version>1.0.0</version>
+</dependency>

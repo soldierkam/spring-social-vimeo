@@ -15,8 +15,8 @@ public class Video {
     private String id;
     private Boolean hd;
     private Boolean transcoding;
-    private String license;//TODO: jaki typ ("0")??
-    private String privacy;//TODO: enum??
+    private Boolean license;
+    private Privacy privacy;
     private String title;
     private String description;
     private Date uploadDate;
@@ -30,7 +30,7 @@ public class Video {
     private Owner owner;
     private List<Thumbnail> thumbnails;
 
-    private Video(Boolean allowAdds, String embedPrivacy, String id, Boolean hd, Boolean transcoding, String license, String privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, Owner owner) {
+    private Video(Boolean allowAdds, String embedPrivacy, String id, Boolean hd, Boolean transcoding, Boolean license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, Owner owner) {
         this.allowAdds = allowAdds;
         this.embedPrivacy = embedPrivacy;
         this.id = id;
@@ -71,11 +71,11 @@ public class Video {
         return transcoding;
     }
 
-    public String getLicense() {
+    public Boolean getLicense() {
         return license;
     }
 
-    public String getPrivacy() {
+    public Privacy getPrivacy() {
         return privacy;
     }
 
