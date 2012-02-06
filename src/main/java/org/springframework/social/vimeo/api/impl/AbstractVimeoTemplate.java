@@ -4,12 +4,15 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
 import org.codehaus.jackson.map.type.TypeFactory;
+import org.springframework.social.ApiException;
 import org.springframework.social.UncategorizedApiException;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,13 +35,16 @@ public class AbstractVimeoTemplate {
         return secure ? "https://vimeo.com/api/rest/v2" : "http://vimeo.com/api/rest/v2";
     }
 
-    private <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type){
+    protected <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type){
         JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
         JsonNode data = node.get(method.dataNodeName());
         return deserializeDataList(data, type);
     }
     <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type){
         JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+        if(!node.has(method.dataNodeName())){
+            throw new ApiException("Invalid JSON response: missing field \"" + method.dataNodeName() + "\"");
+        }
         JsonNode data = node.get(method.dataNodeName());
         try{
             return objectMapper.readValue(data, type);
@@ -65,6 +71,9 @@ public class AbstractVimeoTemplate {
     }
 
     private <T> List<T> deserializeDataList(JsonNode jsonNode, final Class<T> elementType) {
+        if(jsonNode.size() == 1) {
+            jsonNode = jsonNode.get(jsonNode.getFieldNames().next());
+        }
         try {
             CollectionType listType = TypeFactory.defaultInstance().constructCollectionType(List.class, elementType);
             return (List<T>) objectMapper.readValue(jsonNode, listType);
@@ -81,7 +90,7 @@ public class AbstractVimeoTemplate {
                 throw  new IllegalArgumentException();
             }
             if(value != null){
-                params.add(name, value);
+                doAdd(name, value);
             }
         }
         
@@ -89,11 +98,19 @@ public class AbstractVimeoTemplate {
             if(value == null || name == null){
                 throw new IllegalArgumentException();
             }
-            params.add(name, value);
+            doAdd(name, value);
         }
 
         public MultiValueMap<String, Object> build(){
             return new LinkedMultiValueMap<String, Object>(params);
+        }
+        
+        private void doAdd(String name, Object value){
+            if(value instanceof Collection){
+                Collection values = (Collection)value;
+                value = StringUtils.collectionToCommaDelimitedString(values);
+            }
+            params.add(name, value);
         }
     }
 }

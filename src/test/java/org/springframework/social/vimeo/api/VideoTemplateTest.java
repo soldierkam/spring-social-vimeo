@@ -1,8 +1,10 @@
 package org.springframework.social.vimeo.api;
 
+import com.sun.org.apache.bcel.internal.generic.CASTORE;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
+import java.net.URL;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.GET;
@@ -30,6 +32,57 @@ public class VideoTemplateTest extends AbstractVimeoApiTest{
         assertEquals(1, videos.getPageNumber().intValue());
         for(Video v : videos.getVideos()){
             assertNotNull(v.getModifiedDate());
+        }
+    }
+
+    @Test
+    public void testGetThumbnails(){
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("video_thumbnail"), responseHeaders));
+
+        List<Image> thumbnails = vimeo.videoOperations().thumbnails("12345");
+        assertEquals(4, thumbnails.size());
+        for(Image thumbnail : thumbnails){
+            assertNotNull(thumbnail.getHeight());
+            assertNotNull(thumbnail.getWidth());
+            assertNotNull(thumbnail.getUrl());
+        }
+    }
+
+    @Test
+    public void testGetCast(){
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("video_cast"), responseHeaders));
+
+        People cast = vimeo.videoOperations().cast("12345", null, null);
+        assertEquals(Integer.valueOf(1), cast.getTotal());
+        Person p = cast.getMembers().get(0);
+        assertNotNull(p.getDisplayName());
+        assertEquals("3148077", p.getId());
+        assertTrue(p.getPlus());
+        assertFalse(p.getPro());
+        assertFalse(p.getStaff());
+    }
+
+    @Test
+    public void testGetCast2(){
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("video_cast2"), responseHeaders));
+
+        People cast = vimeo.videoOperations().cast("12345", null, null);
+        assertEquals(Integer.valueOf(2), cast.getTotal());
+        for(Person p : cast.getMembers()){
+            assertNotNull(p.getDisplayName());
+            assertNotNull(p.getId());
+            assertNotNull(p.getPlus());
+            assertFalse(p.getPro());
+            assertFalse(p.getStaff());
         }
     }
 }

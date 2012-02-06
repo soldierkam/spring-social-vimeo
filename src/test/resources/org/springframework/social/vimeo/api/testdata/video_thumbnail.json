@@ -1,0 +1,28 @@
+{
+  "generated_in":"0.0140",
+  "stat":"ok",
+  "thumbnails":{
+    "thumbnail":[
+      {
+        "height":"75",
+        "width":"100",
+        "_content":"http:\/\/b.vimeocdn.com\/ts\/248\/191\/248191165_100.jpg"
+      },
+      {
+        "height":"150",
+        "width":"200",
+        "_content":"http:\/\/b.vimeocdn.com\/ts\/248\/191\/248191165_200.jpg"
+      },
+      {
+        "height":"360",
+        "width":"640",
+        "_content":"http:\/\/b.vimeocdn.com\/ts\/248\/191\/248191165_640.jpg"
+      },
+      {
+        "height":"720",
+        "width":"1280",
+        "_content":"http:\/\/b.vimeocdn.com\/ts\/248\/191\/248191165_1280.jpg"
+      }
+    ]
+  }
+}

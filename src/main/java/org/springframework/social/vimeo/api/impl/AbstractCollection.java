@@ -5,13 +5,13 @@ package org.springframework.social.vimeo.api.impl;
  * Date: 2/4/12
  * Time: 6:05 PM
  */
-public class Collection {
+public abstract class AbstractCollection {
     private Integer onThisPage;
     private Integer pageNumber;
     private Integer perPage;
     private Integer total;
 
-    public Collection(Integer onThisPage, Integer pageNumber, Integer perPage, Integer total) {
+    protected AbstractCollection(Integer onThisPage, Integer pageNumber, Integer perPage, Integer total) {
         this.onThisPage = onThisPage;
         this.pageNumber = pageNumber;
         this.perPage = perPage;

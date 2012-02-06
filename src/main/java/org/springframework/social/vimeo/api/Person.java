@@ -8,7 +8,7 @@ import java.util.List;
  * Date: 2/3/12
  * Time: 3:59 PM
  */
-public class Owner {
+public class Person {
 
     private String id;
     private String displayName;
@@ -21,7 +21,7 @@ public class Owner {
     private URL videosUrl;
     private List<Portrait> portraits;
 
-    public Owner(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl) {
+    public Person(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl) {
         this.id = id;
         this.displayName = displayName;
         this.plus = plus;

@@ -8,7 +8,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.springframework.social.vimeo.api.Image;
-import org.springframework.social.vimeo.api.Owner;
+import org.springframework.social.vimeo.api.Person;
 import org.springframework.social.vimeo.api.Privacy;
 
 
@@ -62,7 +62,7 @@ abstract public class VideoMixin {
                @JsonProperty("duration")
                Integer duration,
                @JsonProperty("owner")
-               Owner owner) {}
+               Person owner) {}
 
     @JsonProperty("thumbnails")
     @JsonDeserialize(using = ThumbnailsJsonDeserializer.class)

@@ -15,11 +15,11 @@ import java.util.List;
  * Time: 5:33 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class OwnerMixin {
+abstract public class PersonMixin {
 
     @JsonCreator
 
-    protected OwnerMixin(
+    protected PersonMixin(
             @JsonProperty("id")
             String id,
             @JsonProperty("display_name")

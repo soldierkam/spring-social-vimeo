@@ -1,5 +1,6 @@
 package org.springframework.social.vimeo.api.impl;
 
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
@@ -55,11 +56,12 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo{
 
     @Override
     protected MappingJacksonHttpMessageConverter getJsonMessageConverter() {
-            MappingJacksonHttpMessageConverter converter = super.getJsonMessageConverter();
-            objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new VimeoModule());
+        MappingJacksonHttpMessageConverter converter = super.getJsonMessageConverter();
+        objectMapper = new ObjectMapper();
+        objectMapper.enable(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-            converter.setObjectMapper(objectMapper);
-            return converter;
+        objectMapper.registerModule(new VimeoModule());
+        converter.setObjectMapper(objectMapper);
+        return converter;
     }
 }

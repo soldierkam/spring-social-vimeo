@@ -12,7 +12,7 @@ import java.util.List;
 public class ThumbnailVideo {
 
 
-    public ThumbnailVideo(String id, String ownerId, String title, List<Thumbnail> thumbnails) {
+    public ThumbnailVideo(String id, String ownerId, String title, List<Image> thumbnails) {
         this.id = id;
         this.ownerId = ownerId;
         this.title = title;
@@ -22,7 +22,7 @@ public class ThumbnailVideo {
     private String id;
     private String ownerId;
     private String title;
-    private List<Thumbnail> thumbnails;
+    private List<Image> thumbnails;
 
     public String getId() {
         return id;
@@ -36,7 +36,7 @@ public class ThumbnailVideo {
         return title;
     }
 
-    public List<Thumbnail> getThumbnails() {
+    public List<Image> getThumbnails() {
         return thumbnails;
     }
 }

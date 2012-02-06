@@ -7,7 +7,7 @@ import java.net.URL;
  * Date: 2/3/12
  * Time: 4:00 PM
  */
-public abstract class Image {
+public class Image {
     
     private Integer width;
     private Integer height;

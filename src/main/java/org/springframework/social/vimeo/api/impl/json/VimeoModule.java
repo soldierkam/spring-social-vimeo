@@ -1,7 +1,7 @@
 package org.springframework.social.vimeo.api.impl.json;
 
 import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.Module;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.springframework.social.vimeo.api.*;
 
@@ -22,8 +22,11 @@ public class VimeoModule extends SimpleModule{
         context.setMixInAnnotations(Album.class, AlbumMixin.class);
         context.setMixInAnnotations(Albums.class, AlbumsMixin.class);
         context.setMixInAnnotations(Image.class, ImageMixin.class);
-        context.setMixInAnnotations(Owner.class, OwnerMixin.class);
+        context.setMixInAnnotations(Person.class, PersonMixin.class);
         context.setMixInAnnotations(Tag.class, TagMixin.class);
         context.setMixInAnnotations(ThumbnailVideo.class, ThumbnailVideoMixin.class);
+        context.setMixInAnnotations(Collection.class, CollectionMixin.class);
+        context.setMixInAnnotations(People.class, PeopleMixin.class);
     }
+
 }

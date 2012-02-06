@@ -1,6 +1,6 @@
 package org.springframework.social.vimeo.api;
 
-import org.springframework.social.vimeo.api.impl.Collection;
+import org.springframework.social.vimeo.api.impl.AbstractCollection;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * Date: 2/5/12
  * Time: 12:18 AM
  */
-public class Albums extends Collection{
+public class Albums extends AbstractCollection {
 
     public Albums(Integer onThisPage, Integer pageNumber, Integer perPage, Integer total, List<Album> albums) {
         super(onThisPage, pageNumber, perPage, total);
