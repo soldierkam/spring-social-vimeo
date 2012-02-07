@@ -13,5 +13,7 @@ public interface Vimeo {
 
     VideoOperations videoOperations();
 
+    ActivityOperations activityOperations();
+
     RestTemplate restTemplate();
 }

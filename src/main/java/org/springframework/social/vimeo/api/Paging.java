@@ -1,19 +1,20 @@
-package org.springframework.social.vimeo.api.impl;
+package org.springframework.social.vimeo.api;
 
 /**
  * User: soldier
- * Date: 2/4/12
- * Time: 6:05 PM
+ * Date: 2/7/12
+ * Time: 9:22 PM
  */
-public abstract class AbstractCollection {
+public abstract class Paging {
+
     private Integer onThisPage;
-    private Integer pageNumber;
+    private Integer page;
     private Integer perPage;
     private Integer total;
 
-    protected AbstractCollection(Integer onThisPage, Integer pageNumber, Integer perPage, Integer total) {
+    public Paging(Integer onThisPage, Integer page, Integer perPage, Integer total) {
         this.onThisPage = onThisPage;
-        this.pageNumber = pageNumber;
+        this.page = page;
         this.perPage = perPage;
         this.total = total;
     }
@@ -22,8 +23,8 @@ public abstract class AbstractCollection {
         return onThisPage;
     }
 
-    public Integer getPageNumber() {
-        return pageNumber;
+    public Integer getPage() {
+        return page;
     }
 
     public Integer getPerPage() {

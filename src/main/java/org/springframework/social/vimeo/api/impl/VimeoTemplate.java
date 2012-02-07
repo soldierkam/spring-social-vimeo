@@ -4,7 +4,7 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
-import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
+import org.springframework.social.vimeo.api.ActivityOperations;
 import org.springframework.social.vimeo.api.AlbumOperations;
 import org.springframework.social.vimeo.api.VideoOperations;
 import org.springframework.social.vimeo.api.Vimeo;
@@ -18,10 +18,11 @@ import java.text.SimpleDateFormat;
  * Date: 2/3/12
  * Time: 6:04 PM
  */
-public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo{
+public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
 
     private AlbumOperations albumOperations;
     private VideoOperations videoOperations;
+    private ActivityOperations activityOperations;
     private ObjectMapper objectMapper;
 
     public VimeoTemplate() {
@@ -34,9 +35,10 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo{
         initSubApis();
     }
 
-    private void initSubApis(){
+    private void initSubApis() {
         albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper);
         videoOperations = new VideoTemplate(getRestTemplate(), objectMapper);
+        activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper);
     }
 
     @Override
@@ -47,6 +49,11 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo{
     @Override
     public VideoOperations videoOperations() {
         return videoOperations;
+    }
+
+    @Override
+    public ActivityOperations activityOperations() {
+        return activityOperations;
     }
 
     @Override

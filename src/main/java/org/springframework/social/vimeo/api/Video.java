@@ -12,7 +12,7 @@ public class Video {
 
     private Boolean allowAdds;
     private String embedPrivacy;
-    private String id;
+    private Integer id;
     private Boolean hd;
     private Boolean transcoding;
     private Boolean license;
@@ -30,7 +30,7 @@ public class Video {
     private Person owner;
     private List<Image> thumbnails;
 
-    private Video(Boolean allowAdds, String embedPrivacy, String id, Boolean hd, Boolean transcoding, Boolean license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, Person owner) {
+    private Video(Boolean allowAdds, String embedPrivacy, Integer id, Boolean hd, Boolean transcoding, Boolean license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, Person owner) {
         this.allowAdds = allowAdds;
         this.embedPrivacy = embedPrivacy;
         this.id = id;
@@ -59,7 +59,7 @@ public class Video {
         return embedPrivacy;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
