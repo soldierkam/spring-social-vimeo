@@ -16,20 +16,25 @@ public class VimeoModule extends SimpleModule {
 
     @Override
     public void setupModule(SetupContext context) {
-        context.setMixInAnnotations(Video.class, VideoMixin.class);
-        context.setMixInAnnotations(Videos.class, VideosMixin.class);
-        context.setMixInAnnotations(Album.class, AlbumMixin.class);
-        context.setMixInAnnotations(Albums.class, AlbumsMixin.class);
         context.setMixInAnnotations(Activity.class, ActivityMixin.class);
         context.setMixInAnnotations(Activities.class, ActivitiesMixin.class);
+        context.setMixInAnnotations(Album.class, AlbumMixin.class);
+        context.setMixInAnnotations(Albums.class, AlbumsMixin.class);
+        context.setMixInAnnotations(Channel.class, ChannelMixin.class);
+        context.setMixInAnnotations(Channels.class, ChannelsMixin.class);
+        context.setMixInAnnotations(ChannelInfo.class, ChannelInfoMixin.class);
+        context.setMixInAnnotations(Collection.class, CollectionMixin.class);
+        context.setMixInAnnotations(Comment.class, CommentMixin.class);
+        context.setMixInAnnotations(Group.class, GroupMixin.class);
         context.setMixInAnnotations(Image.class, ImageMixin.class);
+        context.setMixInAnnotations(Moderator.class, ModeratorMixin.class);
+        context.setMixInAnnotations(Moderators.class, ModeratorsMixin.class);
+        context.setMixInAnnotations(People.class, PeopleMixin.class);
         context.setMixInAnnotations(Person.class, PersonMixin.class);
         context.setMixInAnnotations(Tag.class, TagMixin.class);
         context.setMixInAnnotations(ThumbnailVideo.class, ThumbnailVideoMixin.class);
-        context.setMixInAnnotations(Collection.class, CollectionMixin.class);
-        context.setMixInAnnotations(People.class, PeopleMixin.class);
-        context.setMixInAnnotations(Comment.class, CommentMixin.class);
-        context.setMixInAnnotations(Group.class, GroupMixin.class);
+        context.setMixInAnnotations(Video.class, VideoMixin.class);
+        context.setMixInAnnotations(Videos.class, VideosMixin.class);
     }
 
 }

@@ -15,5 +15,7 @@ public interface Vimeo {
 
     ActivityOperations activityOperations();
 
+    ChannelOperations channelOperations();
+
     RestTemplate restTemplate();
 }

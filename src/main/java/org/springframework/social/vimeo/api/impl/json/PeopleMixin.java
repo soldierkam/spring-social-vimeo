@@ -1,5 +1,6 @@
 package org.springframework.social.vimeo.api.impl.json;
 
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.social.vimeo.api.Person;
@@ -14,6 +15,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract public class PeopleMixin {
 
+    @JsonCreator
     protected PeopleMixin(
             @JsonProperty(value = "total")
             Integer total,

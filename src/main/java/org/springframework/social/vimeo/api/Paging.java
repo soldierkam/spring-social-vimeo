@@ -12,7 +12,7 @@ public abstract class Paging {
     private Integer perPage;
     private Integer total;
 
-    public Paging(Integer onThisPage, Integer page, Integer perPage, Integer total) {
+    protected Paging(Integer onThisPage, Integer page, Integer perPage, Integer total) {
         this.onThisPage = onThisPage;
         this.page = page;
         this.perPage = perPage;

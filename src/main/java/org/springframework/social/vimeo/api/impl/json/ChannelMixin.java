@@ -4,20 +4,27 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.net.URL;
+import java.util.List;
+
 /**
  * User: soldier
- * Date: 2/7/12
- * Time: 9:44 PM
+ * Date: 2/8/12
+ * Time: 7:41 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class CommentMixin {
+abstract public class ChannelMixin {
 
     @JsonCreator
-    public CommentMixin(
+    public ChannelMixin(
             @JsonProperty("id")
             Integer id,
-            @JsonProperty("_content")
-            String content
+            @JsonProperty("name")
+            String name,
+            @JsonProperty("image")
+            URL image,
+            @JsonProperty("url")
+            List<URL> urls
     ) {
     }
 }

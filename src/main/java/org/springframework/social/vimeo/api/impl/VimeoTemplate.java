@@ -4,10 +4,7 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
-import org.springframework.social.vimeo.api.ActivityOperations;
-import org.springframework.social.vimeo.api.AlbumOperations;
-import org.springframework.social.vimeo.api.VideoOperations;
-import org.springframework.social.vimeo.api.Vimeo;
+import org.springframework.social.vimeo.api.*;
 import org.springframework.social.vimeo.api.impl.json.VimeoModule;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +20,7 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     private AlbumOperations albumOperations;
     private VideoOperations videoOperations;
     private ActivityOperations activityOperations;
+    private ChannelOperations channelOperations;
     private ObjectMapper objectMapper;
 
     public VimeoTemplate() {
@@ -39,6 +37,7 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
         albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper);
         videoOperations = new VideoTemplate(getRestTemplate(), objectMapper);
         activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper);
+        channelOperations = new ChannelTemplate(getRestTemplate(), objectMapper);
     }
 
     @Override
@@ -54,6 +53,11 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     @Override
     public ActivityOperations activityOperations() {
         return activityOperations;
+    }
+
+    @Override
+    public ChannelOperations channelOperations() {
+        return channelOperations;
     }
 
     @Override

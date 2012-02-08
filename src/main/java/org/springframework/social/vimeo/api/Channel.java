@@ -1,17 +1,40 @@
 package org.springframework.social.vimeo.api;
 
+import java.net.URL;
+import java.util.List;
+
 /**
  * User: soldier
  * Date: 2/7/12
  * Time: 10:27 PM
  */
 public class Channel {
-//    "channel":{
-//        "id":"158520",
-//                "name":"3RD BI-ANNUAL DSLRCINEMA FILM FESTIVAL: EVERY SECOND COUNTS",
-//                "image":"http:\/\/a.vimeocdn.com\/thumbnails\/defaults\/default.75x100.jpg",
-//                "url":[
-//        "http:\/\/vimeo.com\/channels\/158520"
-//        ]
-//    }
+
+    private String id;
+    private String name;
+    private URL image;
+    private List<URL> urls;
+
+    public Channel(String id, String name, URL image, List<URL> urls) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.urls = urls;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public URL getImage() {
+        return image;
+    }
+
+    public List<URL> getUrls() {
+        return urls;
+    }
 }

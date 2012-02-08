@@ -11,14 +11,14 @@ import java.util.List;
 
 /**
  * User: soldier
- * Date: 2/3/12
- * Time: 5:33 PM
+ * Date: 2/8/12
+ * Time: 10:28 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class PersonMixin {
+abstract public class ModeratorMixin {
 
     @JsonCreator
-    protected PersonMixin(
+    protected ModeratorMixin(
             @JsonProperty("id")
             String id,
             @JsonProperty("display_name")
@@ -46,4 +46,8 @@ abstract public class PersonMixin {
     @JsonProperty("portraits")
     @JsonDeserialize(using = PortraitJsonDeserilizer.class)
     List<Portrait> portraits;
+
+    @JsonProperty("is_creator")
+    @JsonDeserialize(using = BooleanJsonDeserializer.class)
+    private Boolean creator;
 }

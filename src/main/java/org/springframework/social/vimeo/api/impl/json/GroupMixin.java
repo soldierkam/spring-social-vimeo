@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 9:46 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GroupMixin {
+abstract public class GroupMixin {
 
     @JsonCreator
     public GroupMixin(
