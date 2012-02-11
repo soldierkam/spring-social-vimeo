@@ -21,6 +21,9 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     private VideoOperations videoOperations;
     private ActivityOperations activityOperations;
     private ChannelOperations channelOperations;
+    private ContactOperations contactOperations;
+    private UploadOperations uploadOperations;
+    private GroupOperations groupOperations;
     private ObjectMapper objectMapper;
 
     public VimeoTemplate() {
@@ -34,10 +37,14 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     }
 
     private void initSubApis() {
+        getRestTemplate().getMessageConverters().add(new StreamHttpMessageConverter());
         albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper);
         videoOperations = new VideoTemplate(getRestTemplate(), objectMapper);
         activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper);
         channelOperations = new ChannelTemplate(getRestTemplate(), objectMapper);
+        contactOperations = new ContactTemplate(getRestTemplate(), objectMapper);
+        uploadOperations = new UploadTemplate(getRestTemplate(), objectMapper);
+        groupOperations = new GroupTemplate(getRestTemplate(), objectMapper);
     }
 
     @Override
@@ -63,6 +70,21 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     @Override
     public RestTemplate restTemplate() {
         return getRestTemplate();
+    }
+
+    @Override
+    public ContactOperations contactOperations() {
+        return contactOperations;
+    }
+
+    @Override
+    public UploadOperations uploadOperations() {
+        return uploadOperations;
+    }
+
+    @Override
+    public GroupOperations groupOperations() {
+        return groupOperations;
     }
 
     @Override

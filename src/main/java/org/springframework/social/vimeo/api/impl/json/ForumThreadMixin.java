@@ -9,20 +9,18 @@ import java.util.List;
 
 /**
  * User: soldier
- * Date: 2/8/12
- * Time: 7:41 PM
+ * Date: 12.02.12
+ * Time: 00:32
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ChannelMixin {
-
+abstract public class ForumThreadMixin {
     @JsonCreator
-    public ChannelMixin(
+
+    protected ForumThreadMixin(
             @JsonProperty("id")
             String id,
-            @JsonProperty("name")
-            String name,
-            @JsonProperty("image")
-            URL image,
+            @JsonProperty("title")
+            String title,
             @JsonProperty("url")
             List<URL> urls
     ) {

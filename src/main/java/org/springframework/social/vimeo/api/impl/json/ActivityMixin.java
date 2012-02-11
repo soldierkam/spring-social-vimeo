@@ -33,7 +33,11 @@ abstract public class ActivityMixin {
             @JsonProperty("comment")
             List<Comment> comment,
             @JsonProperty("group")
-            Group group
+            Group group,
+            @JsonProperty("forum")
+            Forum forum,
+            @JsonProperty("channel")
+            Channel channel
     ) {
     }
 }

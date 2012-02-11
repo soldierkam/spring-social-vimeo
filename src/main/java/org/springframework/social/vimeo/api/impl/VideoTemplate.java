@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 2/3/12
  * Time: 6:13 PM
  */
-public class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations{
+public class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
 
     private final static VimeoMethod SEARCH_METHOD = new VimeoMethodImpl("vimeo.videos.search", "videos");
     private final static VimeoMethod ADD_CAST = new VimeoMethodImpl("vimeo.videos.addCast");
@@ -116,9 +116,9 @@ public class VideoTemplate extends AbstractVimeoTemplate implements VideoOperati
     public void changeLicense(String videoId, CreativeCommonLicenseType licenseType) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
-        if(CreativeCommonLicenseType.NONE.equals(licenseType)){
+        if (CreativeCommonLicenseType.NONE.equals(licenseType)) {
             params.add("license", "0");
-        }else{
+        } else {
             params.add("license", licenseType);
         }
         doMethod(CHANGE_LICENSE, params.build());
@@ -218,21 +218,21 @@ public class VideoTemplate extends AbstractVimeoTemplate implements VideoOperati
     }
 
     @Override
-    public People cast(String videoId, Integer page, Integer perPage) {
+    public Casts cast(String videoId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage);
-        return getObject(CAST, params.build(), People.class);
+        return getObject(CAST, params.build(), Casts.class);
     }
 
     @Override
-    public People likers(String videoId, Integer page, Integer perPage) {
+    public Moderators likers(String videoId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage);
-        return getObject(LIKERS, params.build(), People.class);
+        return getObject(LIKERS, params.build(), Moderators.class);
     }
 
     @Override

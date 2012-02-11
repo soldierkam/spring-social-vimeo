@@ -18,8 +18,8 @@ public interface VideoOperations {
     /**
      * Get the cast members of a video.
      */
-    People cast(String videoId, Integer page, Integer perPage);
-    
+    Casts cast(String videoId, Integer page, Integer perPage);
+
     /**
      * Add a specified user as a cast member to the video.
      */
@@ -68,7 +68,7 @@ public interface VideoOperations {
     /**
      * Get a list of the users that have liked a video.
      */
-    People likers(String videoId, Integer page, Integer perPage);
+    Moderators likers(String videoId, Integer page, Integer perPage);
 
     /**
      * Get a list of videos uploaded by a user.

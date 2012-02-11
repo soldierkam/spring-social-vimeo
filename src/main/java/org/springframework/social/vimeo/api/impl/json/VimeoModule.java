@@ -23,16 +23,25 @@ public class VimeoModule extends SimpleModule {
         context.setMixInAnnotations(Channel.class, ChannelMixin.class);
         context.setMixInAnnotations(Channels.class, ChannelsMixin.class);
         context.setMixInAnnotations(ChannelInfo.class, ChannelInfoMixin.class);
+        context.setMixInAnnotations(Cast.class, CastMixin.class);
+        context.setMixInAnnotations(Casts.class, CastsMixin.class);
         context.setMixInAnnotations(Collection.class, CollectionMixin.class);
         context.setMixInAnnotations(Comment.class, CommentMixin.class);
+        context.setMixInAnnotations(Contact.class, ContactMixin.class);
+        context.setMixInAnnotations(Contacts.class, ContactsMixin.class);
+        context.setMixInAnnotations(Forum.class, ForumMixin.class);
+        context.setMixInAnnotations(ForumThread.class, ForumThreadMixin.class);
         context.setMixInAnnotations(Group.class, GroupMixin.class);
         context.setMixInAnnotations(Image.class, ImageMixin.class);
         context.setMixInAnnotations(Moderator.class, ModeratorMixin.class);
         context.setMixInAnnotations(Moderators.class, ModeratorsMixin.class);
         context.setMixInAnnotations(People.class, PeopleMixin.class);
         context.setMixInAnnotations(Person.class, PersonMixin.class);
+        context.setMixInAnnotations(Quota.class, QuotaMixin.class);
         context.setMixInAnnotations(Tag.class, TagMixin.class);
         context.setMixInAnnotations(ThumbnailVideo.class, ThumbnailVideoMixin.class);
+        context.setMixInAnnotations(Ticket.class, TicketMixin.class);
+        context.setMixInAnnotations(UploadSpace.class, UploadSpaceMixin.class);
         context.setMixInAnnotations(Video.class, VideoMixin.class);
         context.setMixInAnnotations(Videos.class, VideosMixin.class);
     }

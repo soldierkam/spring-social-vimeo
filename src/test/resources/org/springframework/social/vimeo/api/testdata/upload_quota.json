@@ -1,0 +1,12 @@
+{
+  "id":"101193",
+  "is_plus":"1",
+  "upload_space":{
+    "free":"1073741824",
+    "max":"5368709120",
+    "resets":"3",
+    "used":"0"
+  },
+  "hd_quota":"1",
+  "sd_quota":"1"
+}

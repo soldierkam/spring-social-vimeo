@@ -17,9 +17,18 @@ abstract public class PeopleMixin {
 
     @JsonCreator
     protected PeopleMixin(
+            @JsonProperty(value = "on_this_page")
+            Integer onThisPage,
+            @JsonProperty(value = "page")
+            Integer page,
+            @JsonProperty(value = "perpage")
+            Integer perPage,
             @JsonProperty(value = "total")
             Integer total,
             @JsonProperty(value = "member")
             List<Person> members) {
     }
+
+    @JsonProperty(value = "contact")
+    List<Person> members;
 }

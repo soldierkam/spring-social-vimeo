@@ -3,7 +3,7 @@ package org.springframework.social.vimeo.api.impl.json;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.Thumbnail;
+import org.springframework.social.vimeo.api.Image;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public abstract class ThumbnailVideoMixin {
             String title,
             @JsonProperty("thumbnails")
             @JsonDeserialize(using = ThumbnailsJsonDeserializer.class)
-            List<Thumbnail> thumbnails
+            List<Image> thumbnails
     ) {
     }
 }

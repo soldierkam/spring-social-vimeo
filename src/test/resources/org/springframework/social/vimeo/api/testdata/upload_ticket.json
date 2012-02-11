@@ -1,0 +1,6 @@
+{
+  "id":"abcdef124567890",
+  "host":"1.2.3.4",
+  "endpoint":"http:\/\/1.2.3.4\/upload?ticket_id=abcdef124567890",
+  "max_file_size":"524288000"
+}

@@ -5,8 +5,8 @@ package org.springframework.social.vimeo.api.impl;
  * Date: 2/4/12
  * Time: 3:26 PM
  */
-public class VimeoMethodImpl implements VimeoMethod{
-    
+public class VimeoMethodImpl implements VimeoMethod {
+
     private final String name;
     private final String data;
 
@@ -27,9 +27,14 @@ public class VimeoMethodImpl implements VimeoMethod{
 
     @Override
     public String dataNodeName() {
-        if(data == null){
+        if (data == null) {
             throw new IllegalStateException();
         }
         return data;
+    }
+
+    @Override
+    public boolean hasDataNodeName() {
+        return data != null && !data.equals("");
     }
 }

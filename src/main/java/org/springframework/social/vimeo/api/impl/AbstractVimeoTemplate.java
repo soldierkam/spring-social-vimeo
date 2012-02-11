@@ -31,47 +31,50 @@ public class AbstractVimeoTemplate {
         this.objectMapper = mapper;
     }
 
-    protected String getUri(){
+    protected String getUri() {
         return secure ? "https://vimeo.com/api/rest/v2" : "http://vimeo.com/api/rest/v2";
     }
 
-    protected <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type){
+    protected <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
         JsonNode data = node.get(method.dataNodeName());
         return deserializeDataList(data, type);
     }
-    <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type){
+
+    <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
-        if(!node.has(method.dataNodeName())){
-            throw new ApiException("Invalid JSON response: missing field \"" + method.dataNodeName() + "\"");
+        if (method.hasDataNodeName()) {
+            if (!node.has(method.dataNodeName())) {
+                throw new ApiException("Invalid JSON response: missing field \"" + method.dataNodeName() + "\"");
+            }
+            node = node.get(method.dataNodeName());
         }
-        JsonNode data = node.get(method.dataNodeName());
-        try{
-            return objectMapper.readValue(data, type);
-        }catch (IOException e){
+        try {
+            return objectMapper.readValue(node, type);
+        } catch (IOException e) {
             throw new UncategorizedApiException("Error deserializing data from Vimeo: " + e.getMessage(), e);
         }
     }
-    
-    private MultiValueMap<String, Object> createParamsMap(VimeoMethod method, MultiValueMap<String, Object> p){
-        MultiValueMap params = new LinkedMultiValueMap(p);
+
+    private MultiValueMap<String, Object> createParamsMap(VimeoMethod method, MultiValueMap<String, Object> p) {
+        MultiValueMap params = p == null ? new LinkedMultiValueMap() : new LinkedMultiValueMap(p);
         params.add("method", method.name());
         params.add("format", "json");
         return params;
     }
 
-    protected void doMethod(VimeoMethod method, MultiValueMap<String, Object> p){
+    protected void doMethod(VimeoMethod method, MultiValueMap<String, Object> p) {
         restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
     }
 
-    protected String doAction(VimeoMethod method, MultiValueMap<String, Object> p){
+    protected String doAction(VimeoMethod method, MultiValueMap<String, Object> p) {
         JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
         JsonNode arrayOfObject = node.get(method.dataNodeName());
         return arrayOfObject.get(0).get("id").getTextValue();
     }
 
     private <T> List<T> deserializeDataList(JsonNode jsonNode, final Class<T> elementType) {
-        if(jsonNode.size() == 1) {
+        if (jsonNode.size() == 1) {
             jsonNode = jsonNode.get(jsonNode.getFieldNames().next());
         }
         try {
@@ -81,33 +84,38 @@ public class AbstractVimeoTemplate {
             throw new UncategorizedApiException("Error deserializing data from Vimeo: " + e.getMessage(), e);
         }
     }
-    
-    protected class ParamsBuilder{
+
+    protected class ParamsBuilder {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>(10);
 
-        public void addIfNotNull(String name, Object value){
-            if(name == null){
-                throw  new IllegalArgumentException();
+        public void addIfNotNull(String name, Object value) {
+            if (name == null) {
+                throw new IllegalArgumentException();
             }
-            if(value != null){
+            if (value != null) {
                 doAdd(name, value);
             }
         }
-        
-        public void add(String name, Object value){
-            if(value == null || name == null){
+
+        public void add(String name, Object value) {
+            if (value == null || name == null) {
                 throw new IllegalArgumentException();
             }
             doAdd(name, value);
         }
 
-        public MultiValueMap<String, Object> build(){
+        public void add(String name, Object value, Object defaultValue) {
+            Object toSet = value == null ? defaultValue : value;
+            add(name, toSet);
+        }
+
+        public MultiValueMap<String, Object> build() {
             return new LinkedMultiValueMap<String, Object>(params);
         }
-        
-        private void doAdd(String name, Object value){
-            if(value instanceof Collection){
-                Collection values = (Collection)value;
+
+        private void doAdd(String name, Object value) {
+            if (value instanceof Collection) {
+                Collection values = (Collection) value;
                 value = StringUtils.collectionToCommaDelimitedString(values);
             }
             params.add(name, value);

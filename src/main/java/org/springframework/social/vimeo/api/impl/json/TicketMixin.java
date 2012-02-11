@@ -5,26 +5,25 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.net.URL;
-import java.util.List;
 
 /**
  * User: soldier
- * Date: 2/8/12
- * Time: 7:41 PM
+ * Date: 2/10/12
+ * Time: 9:25 AM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ChannelMixin {
+public class TicketMixin {
 
     @JsonCreator
-    public ChannelMixin(
+    public TicketMixin(
             @JsonProperty("id")
             String id,
-            @JsonProperty("name")
-            String name,
-            @JsonProperty("image")
-            URL image,
-            @JsonProperty("url")
-            List<URL> urls
+            @JsonProperty("host")
+            String host,
+            @JsonProperty("endpoint")
+            URL endpoint,
+            @JsonProperty("max_file_size")
+            Long maxFileSize
     ) {
     }
 }

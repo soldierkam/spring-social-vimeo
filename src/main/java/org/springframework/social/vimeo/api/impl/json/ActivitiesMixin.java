@@ -4,8 +4,6 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.social.vimeo.api.Activity;
-import org.springframework.social.vimeo.api.Channel;
-import org.springframework.social.vimeo.api.Forum;
 
 import java.util.List;
 
@@ -28,11 +26,7 @@ abstract public class ActivitiesMixin {
             @JsonProperty("total")
             Integer total,
             @JsonProperty("activity")
-            List<Activity> activities,
-            @JsonProperty("forum")
-            Forum forum,
-            @JsonProperty("channel")
-            Channel channel
+            List<Activity> activities
     ) {
     }
 }

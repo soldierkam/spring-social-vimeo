@@ -5,8 +5,12 @@ package org.springframework.social.vimeo.api.impl;
  * Date: 2/4/12
  * Time: 3:24 PM
  */
-public interface VimeoMethod {
-    
+public interface
+        VimeoMethod {
+
     String name();
+
     String dataNodeName();
+
+    boolean hasDataNodeName();
 }

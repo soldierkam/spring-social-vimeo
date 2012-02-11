@@ -54,9 +54,9 @@ public class VideoTemplateTest extends AbstractVimeoApiTest {
                 .andExpect(headerContains("Authorization", "OAuth oauth_version"))
                 .andRespond(withResponse(jsonResource("video_cast"), responseHeaders));
 
-        People cast = vimeo.videoOperations().cast("12345", null, null);
+        Casts cast = vimeo.videoOperations().cast("12345", null, null);
         assertEquals(Integer.valueOf(1), cast.getTotal());
-        Person p = cast.getMembers().get(0);
+        Person p = cast.getCasts().get(0);
         assertNotNull(p.getDisplayName());
         assertEquals("3148077", p.getId());
         assertTrue(p.getPlus());
@@ -71,9 +71,9 @@ public class VideoTemplateTest extends AbstractVimeoApiTest {
                 .andExpect(headerContains("Authorization", "OAuth oauth_version"))
                 .andRespond(withResponse(jsonResource("video_cast2"), responseHeaders));
 
-        People cast = vimeo.videoOperations().cast("12345", null, null);
+        Casts cast = vimeo.videoOperations().cast("12345", null, null);
         assertEquals(Integer.valueOf(2), cast.getTotal());
-        for (Person p : cast.getMembers()) {
+        for (Person p : cast.getCasts()) {
             assertNotNull(p.getDisplayName());
             assertNotNull(p.getId());
             assertNotNull(p.getPlus());

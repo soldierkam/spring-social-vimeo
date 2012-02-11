@@ -7,17 +7,12 @@ import java.util.List;
  * Date: 2/6/12
  * Time: 8:00 PM
  */
-public class People {
-    private Integer total;
+public class People extends Paging {
     private List<Person> members;
 
-    public People(Integer total, List<Person> members) {
-        this.total = total;
+    public People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Person> members) {
+        super(onThisPage, page, perPage, total);
         this.members = members;
-    }
-
-    public Integer getTotal() {
-        return total;
     }
 
     public List<Person> getMembers() {
