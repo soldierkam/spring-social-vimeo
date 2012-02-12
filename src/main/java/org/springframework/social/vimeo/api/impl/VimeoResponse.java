@@ -14,6 +14,13 @@ class VimeoResponse {
     @JsonProperty("generated_in")
     private Integer generateIn;
     @JsonProperty("stat")
-    private String stat;//TODO: enum?
+    private VimeoResponseType stat;
 
+    public Integer getGenerateIn() {
+        return generateIn;
+    }
+
+    public VimeoResponseType getStat() {
+        return stat;
+    }
 }

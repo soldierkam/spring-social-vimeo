@@ -38,6 +38,7 @@ class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
 
     private void initSubApis() {
         getRestTemplate().getMessageConverters().add(new StreamHttpMessageConverter());
+        getRestTemplate().setErrorHandler(new VimeoErrorHandler(objectMapper));
         albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper);
         videoOperations = new VideoTemplate(getRestTemplate(), objectMapper);
         activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper);
