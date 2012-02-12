@@ -5,7 +5,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
-import org.springframework.social.vimeo.api.ActivityType;
+import org.springframework.social.vimeo.api.model.ActivityType;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  * Date: 2/7/12
  * Time: 10:08 PM
  */
-public class ActivityTypeJsonDeseriializer extends JsonDeserializer<ActivityType> {
+class ActivityTypeJsonDeseriializer extends JsonDeserializer<ActivityType> {
     @Override
     public ActivityType deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         String value = jp.readValueAs(String.class);

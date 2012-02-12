@@ -1,7 +1,10 @@
 package org.springframework.social.vimeo.api;
 
+import org.springframework.social.vimeo.api.model.Albums;
+import org.springframework.social.vimeo.api.model.AlbumsSortMethod;
+import org.springframework.social.vimeo.api.model.Videos;
+
 import java.util.Collection;
-import java.util.List;
 
 /**
  * User: soldier

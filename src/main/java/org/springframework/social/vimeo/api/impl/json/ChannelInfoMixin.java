@@ -4,9 +4,9 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.ChannelLayout;
-import org.springframework.social.vimeo.api.Person;
-import org.springframework.social.vimeo.api.Privacy;
+import org.springframework.social.vimeo.api.model.ChannelLayout;
+import org.springframework.social.vimeo.api.model.Person;
+import org.springframework.social.vimeo.api.model.Privacy;
 
 import java.net.URL;
 import java.util.Date;
@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 10:01 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ChannelInfoMixin {
+abstract class ChannelInfoMixin {
 
     @JsonCreator
     protected ChannelInfoMixin(
@@ -54,10 +54,12 @@ abstract public class ChannelInfoMixin {
             @JsonProperty("url")
             List<URL> urls,
             @JsonProperty("layout")
+            @JsonDeserialize(using = ChannelLayoutJsonDeserializer.class)
             ChannelLayout layout,
             @JsonProperty("theme")
             String theme,
             @JsonProperty("privacy")
+            @JsonDeserialize(using = PrivacyJsonDeserilizer.class)
             Privacy privacy,
             @JsonProperty("creator")
             Person creator

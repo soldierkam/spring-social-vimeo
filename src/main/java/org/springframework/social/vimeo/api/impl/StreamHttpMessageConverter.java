@@ -16,7 +16,7 @@ import java.io.InputStream;
  * Date: 10.02.12
  * Time: 23:46
  */
-public class StreamHttpMessageConverter extends AbstractHttpMessageConverter<InputStream> {
+class StreamHttpMessageConverter extends AbstractHttpMessageConverter<InputStream> {
 
     public StreamHttpMessageConverter() {
         super(MediaType.ALL);

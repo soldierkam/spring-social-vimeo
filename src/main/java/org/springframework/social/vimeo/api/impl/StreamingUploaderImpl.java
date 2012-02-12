@@ -2,10 +2,10 @@ package org.springframework.social.vimeo.api.impl;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.vimeo.api.Quota;
 import org.springframework.social.vimeo.api.StreamingUploader;
-import org.springframework.social.vimeo.api.Ticket;
 import org.springframework.social.vimeo.api.UploadOperations;
+import org.springframework.social.vimeo.api.model.Quota;
+import org.springframework.social.vimeo.api.model.Ticket;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  * Date: 2/10/12
  * Time: 10:20 AM
  */
-public class StreamingUploaderImpl implements StreamingUploader {
+class StreamingUploaderImpl implements StreamingUploader {
 
     private final Quota quota;
     private final Ticket ticket;

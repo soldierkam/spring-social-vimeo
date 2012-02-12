@@ -13,7 +13,7 @@ import java.net.URL;
  * Time: 6:19 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ContactMixin {
+abstract class ContactMixin {
 
     @JsonCreator
     protected ContactMixin(
@@ -38,11 +38,14 @@ abstract public class ContactMixin {
             String userName,
             @JsonProperty("videosurl")
             URL videosUrl,
-            @JsonProperty("mutual")
-            //@JsonProperty("is_mutual_contact")
+            @JsonProperty("is_mutual_contact")
             @JsonDeserialize(using = BooleanJsonDeserializer.class)
             Boolean mutual
     ) {
     }
+
+    @JsonProperty("mutual")
+    @JsonDeserialize(using = BooleanJsonDeserializer.class)
+    private Boolean mutual;
 
 }

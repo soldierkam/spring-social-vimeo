@@ -1,5 +1,7 @@
 package org.springframework.social.vimeo.api;
 
+import org.springframework.social.vimeo.api.model.*;
+
 import java.net.URL;
 import java.util.List;
 

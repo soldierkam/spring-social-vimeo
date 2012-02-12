@@ -2,7 +2,7 @@ package org.springframework.social.vimeo.api.impl.json;
 
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
-import org.springframework.social.vimeo.api.*;
+import org.springframework.social.vimeo.api.model.*;
 
 /**
  * User: soldier
@@ -23,6 +23,7 @@ public class VimeoModule extends SimpleModule {
         context.setMixInAnnotations(Channel.class, ChannelMixin.class);
         context.setMixInAnnotations(Channels.class, ChannelsMixin.class);
         context.setMixInAnnotations(ChannelInfo.class, ChannelInfoMixin.class);
+        context.setMixInAnnotations(ChannelInfos.class, ChannelInfosMixin.class);
         context.setMixInAnnotations(Cast.class, CastMixin.class);
         context.setMixInAnnotations(Casts.class, CastsMixin.class);
         context.setMixInAnnotations(Collection.class, CollectionMixin.class);

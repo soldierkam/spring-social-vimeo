@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.Portrait;
+import org.springframework.social.vimeo.api.model.Portrait;
 
 import java.net.URL;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 10:28 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ModeratorMixin {
+abstract class ModeratorMixin {
 
     @JsonCreator
     protected ModeratorMixin(

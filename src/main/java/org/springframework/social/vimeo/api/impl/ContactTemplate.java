@@ -2,9 +2,8 @@ package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.social.vimeo.api.ContactOperations;
-import org.springframework.social.vimeo.api.ContactSort;
-import org.springframework.social.vimeo.api.Contacts;
-import org.springframework.social.vimeo.api.People;
+import org.springframework.social.vimeo.api.model.ContactSort;
+import org.springframework.social.vimeo.api.model.Contacts;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -12,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
  * Date: 2/9/12
  * Time: 6:38 PM
  */
-public class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations {
+class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations {
 
     private final static VimeoMethod ALL = new VimeoMethodImpl("vimeo.contacts.getAll", "contacts");
     private final static VimeoMethod WHO_ADDED = new VimeoMethodImpl("vimeo.contacts.getWhoAdded", "contacts");
@@ -44,12 +43,12 @@ public class ContactTemplate extends AbstractVimeoTemplate implements ContactOpe
     }
 
     @Override
-    public People mutual(String userId, Integer page, Integer perPage) {
+    public Contacts mutual(String userId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("perpage", perPage);
-        return getObject(MUTUAL, params.build(), People.class);
+        return getObject(MUTUAL, params.build(), Contacts.class);
     }
 
     @Override

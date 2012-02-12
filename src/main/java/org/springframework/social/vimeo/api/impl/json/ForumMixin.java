@@ -3,7 +3,7 @@ package org.springframework.social.vimeo.api.impl.json;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.social.vimeo.api.ForumThread;
+import org.springframework.social.vimeo.api.model.ForumThread;
 
 import java.net.URL;
 
@@ -13,7 +13,7 @@ import java.net.URL;
  * Time: 23:56
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ForumMixin {
+abstract class ForumMixin {
 
     @JsonCreator
     protected ForumMixin(

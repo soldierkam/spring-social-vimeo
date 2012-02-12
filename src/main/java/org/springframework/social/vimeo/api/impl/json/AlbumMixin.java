@@ -3,8 +3,8 @@ package org.springframework.social.vimeo.api.impl.json;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.social.vimeo.api.ThumbnailVideo;
-import org.springframework.social.vimeo.api.VideosSortMethod;
+import org.springframework.social.vimeo.api.model.ThumbnailVideo;
+import org.springframework.social.vimeo.api.model.VideosSortMethod;
 
 import java.net.URL;
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.List;
  * Time: 12:22 AM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class AlbumMixin {
+abstract class AlbumMixin {
 
     @JsonCreator
     protected AlbumMixin(

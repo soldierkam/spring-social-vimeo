@@ -9,11 +9,11 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * Time: 2:43 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VimeoResponse {
+class VimeoResponse {
 
     @JsonProperty("generated_in")
     private Integer generateIn;
     @JsonProperty("stat")
     private String stat;//TODO: enum?
-    
+
 }

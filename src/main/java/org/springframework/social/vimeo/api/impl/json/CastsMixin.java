@@ -3,7 +3,7 @@ package org.springframework.social.vimeo.api.impl.json;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.social.vimeo.api.Cast;
+import org.springframework.social.vimeo.api.model.Cast;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 23:38
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class CastsMixin {
+abstract class CastsMixin {
     @JsonCreator
     protected CastsMixin(
             @JsonProperty("on_this_page")

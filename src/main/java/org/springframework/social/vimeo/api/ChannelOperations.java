@@ -1,5 +1,7 @@
 package org.springframework.social.vimeo.api;
 
+import org.springframework.social.vimeo.api.model.*;
+
 /**
  * User: soldier
  * Date: 2/8/12
@@ -21,7 +23,7 @@ public interface ChannelOperations {
     /**
      * Get a list of the channels that a user moderates.
      */
-    Channels moderated(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy);
+    ChannelInfos moderated(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy);
 
     /**
      * Get a list of the channel's moderators.

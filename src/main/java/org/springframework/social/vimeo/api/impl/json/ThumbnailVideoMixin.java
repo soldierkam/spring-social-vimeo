@@ -3,7 +3,7 @@ package org.springframework.social.vimeo.api.impl.json;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.Image;
+import org.springframework.social.vimeo.api.model.Image;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 12:31 AM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class ThumbnailVideoMixin {
+abstract class ThumbnailVideoMixin {
 
     protected ThumbnailVideoMixin(
             @JsonProperty("id")

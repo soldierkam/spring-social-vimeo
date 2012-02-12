@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 00:32
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ForumThreadMixin {
+abstract class ForumThreadMixin {
     @JsonCreator
 
     protected ForumThreadMixin(

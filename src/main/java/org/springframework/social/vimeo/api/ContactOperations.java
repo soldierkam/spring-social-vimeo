@@ -1,5 +1,8 @@
 package org.springframework.social.vimeo.api;
 
+import org.springframework.social.vimeo.api.model.ContactSort;
+import org.springframework.social.vimeo.api.model.Contacts;
+
 /**
  * User: soldier
  * Date: 2/9/12
@@ -19,8 +22,9 @@ public interface ContactOperations {
 
     /**
      * Get a list of the mutual contacts of a specific user.
+     * TODO: return null mutual field
      */
-    People mutual(String userId, Integer page, Integer perPage);
+    Contacts mutual(String userId, Integer page, Integer perPage);
 
     /**
      * Get a list of the user's contacts who are currently online.

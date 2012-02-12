@@ -20,13 +20,13 @@ import java.util.List;
  * Date: 2/4/12
  * Time: 2:26 PM
  */
-public class AbstractVimeoTemplate {
+class AbstractVimeoTemplate {
 
     protected boolean secure = true;
     protected final RestTemplate restTemplate;
     protected final ObjectMapper objectMapper;
 
-    public AbstractVimeoTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
+    protected AbstractVimeoTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         this.restTemplate = restTemplate;
         this.objectMapper = mapper;
     }

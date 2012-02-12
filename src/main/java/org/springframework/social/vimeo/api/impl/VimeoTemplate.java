@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
  * Date: 2/3/12
  * Time: 6:04 PM
  */
-public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
+class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
 
     private AlbumOperations albumOperations;
     private VideoOperations videoOperations;

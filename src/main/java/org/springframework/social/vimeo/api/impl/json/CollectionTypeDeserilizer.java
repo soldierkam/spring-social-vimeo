@@ -5,8 +5,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
-import org.springframework.social.vimeo.api.CollectionType;
-import org.springframework.social.vimeo.api.Privacy;
+import org.springframework.social.vimeo.api.model.CollectionType;
 
 import java.io.IOException;
 
@@ -15,13 +14,13 @@ import java.io.IOException;
  * Date: 2/5/12
  * Time: 4:23 PM
  */
-public class CollectionTypeDeserilizer extends JsonDeserializer<CollectionType>{
+class CollectionTypeDeserilizer extends JsonDeserializer<CollectionType> {
     @Override
     public CollectionType deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         String value = jp.readValueAs(String.class);
-        try{
+        try {
             return CollectionType.valueOf(value.toUpperCase());
-        }catch(IllegalArgumentException exc){
+        } catch (IllegalArgumentException exc) {
             throw new JsonParseException("Cannot read collection type", jp.getCurrentLocation(), exc);
         }
     }

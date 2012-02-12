@@ -1,7 +1,8 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.social.vimeo.api.*;
+import org.springframework.social.vimeo.api.ChannelOperations;
+import org.springframework.social.vimeo.api.model.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
  * Date: 2/8/12
  * Time: 7:51 PM
  */
-public class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations {
+class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations {
 
     private final static VimeoMethod ADD_VIDEO = new VimeoMethodImpl("vimeo.channels.addVideo");
     private final static VimeoMethod REMOVE_VIDEO = new VimeoMethodImpl("vimeo.channels.removeVideo");
@@ -18,7 +19,7 @@ public class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOpe
     private final static VimeoMethod VIDEOS = new VimeoMethodImpl("vimeo.channels.getVideos", "videos");
     private final static VimeoMethod UNSUBSCRIBE = new VimeoMethodImpl("vimeo.channels.unsubscribe");
     private final static VimeoMethod SUBSCRIBE = new VimeoMethodImpl("vimeo.channels.subscribe");
-    private final static VimeoMethod SUBSCRIBERS = new VimeoMethodImpl("vimeo.channels.getSubscribers", "user");
+    private final static VimeoMethod SUBSCRIBERS = new VimeoMethodImpl("vimeo.channels.getSubscribers", "subscribers");
     private final static VimeoMethod ALL = new VimeoMethodImpl("vimeo.channels.getAll", "channels");
     private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.channels.getInfo", "channel");
 
@@ -35,13 +36,13 @@ public class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOpe
     }
 
     @Override
-    public Channels moderated(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy) {
+    public ChannelInfos moderated(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage);
         params.addIfNotNull("sort", sortBy);
-        return getObject(MODERATED, params.build(), Channels.class);
+        return getObject(MODERATED, params.build(), ChannelInfos.class);
     }
 
     @Override

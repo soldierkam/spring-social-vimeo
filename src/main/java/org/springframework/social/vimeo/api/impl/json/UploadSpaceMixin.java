@@ -11,7 +11,7 @@ import org.codehaus.jackson.annotate.JsonUnwrapped;
  * Time: 9:00 AM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class UploadSpaceMixin {
+abstract class UploadSpaceMixin {
 
     @JsonCreator
     protected UploadSpaceMixin(

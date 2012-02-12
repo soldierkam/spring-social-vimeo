@@ -5,8 +5,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.Privacy;
+import org.springframework.social.vimeo.api.model.Privacy;
 
 import java.io.IOException;
 
@@ -15,13 +14,13 @@ import java.io.IOException;
  * Date: 2/4/12
  * Time: 9:13 PM
  */
-public class PrivacyJsonDeserilizer extends JsonDeserializer<Privacy>{
+class PrivacyJsonDeserilizer extends JsonDeserializer<Privacy> {
     @Override
     public Privacy deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         String value = jp.readValueAs(String.class);
-        try{
+        try {
             return Privacy.valueOf(value.toUpperCase());
-        }catch(IllegalArgumentException exc){
+        } catch (IllegalArgumentException exc) {
             throw new JsonParseException("Cannot read privacy", jp.getCurrentLocation(), exc);
         }
     }

@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.*;
+import org.springframework.social.vimeo.api.model.*;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 9:11 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ActivityMixin {
+abstract class ActivityMixin {
 
     @JsonCreator
     protected ActivityMixin(

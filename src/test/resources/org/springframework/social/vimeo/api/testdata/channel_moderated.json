@@ -1,0 +1,66 @@
+{
+  "generated_in":"0.0367",
+  "stat":"ok",
+  "channels":{
+    "on_this_page":"1",
+    "page":"1",
+    "perpage":"50",
+    "total":"1",
+    "channel":{
+      "id":"141233",
+      "is_featured":"0",
+      "is_sponsored":"0",
+      "is_subscribed":"0",
+      "name":"Sencha",
+      "description":"This is our Vimeo Channel where you can find helpful video tutorials about Sencha frameworks.\n\nSencha makes JavaScript frameworks to develop amazing web apps built on web standards. Check out Ext JS and Sencha Touch.",
+      "created_on":"2010-10-15 20:01:20",
+      "modified_on":"2012-02-01 16:32:11",
+      "total_videos":"16",
+      "total_subscribers":"96",
+      "logo_url":"http:\/\/channelheader.vimeo.com.s3.amazonaws.com\/770\/77047_980.jpg",
+      "badge_url":"",
+      "thumbnail_url":"http:\/\/b.vimeocdn.com\/ts\/108\/175\/108175461_200.jpg",
+      "url":[
+        "http:\/\/vimeo.com\/channels\/sencha"
+      ],
+      "layout":"gallery",
+      "theme":"tuxedo",
+      "privacy":"anybody",
+      "creator":{
+        "display_name":"Sencha",
+        "id":"4012687",
+        "is_plus":"0",
+        "is_pro":"1",
+        "is_staff":"0",
+        "profileurl":"http:\/\/vimeo.com\/sencha",
+        "realname":"Sencha",
+        "username":"sencha",
+        "videosurl":"http:\/\/vimeo.com\/sencha\/videos",
+        "portraits":{
+          "portrait":[
+            {
+              "height":"30",
+              "width":"30",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/294\/392\/2943928_30.jpg"
+            },
+            {
+              "height":"75",
+              "width":"75",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/294\/392\/2943928_75.jpg"
+            },
+            {
+              "height":"100",
+              "width":"100",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/294\/392\/2943928_100.jpg"
+            },
+            {
+              "height":"300",
+              "width":"300",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/294\/392\/2943928_300.jpg"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

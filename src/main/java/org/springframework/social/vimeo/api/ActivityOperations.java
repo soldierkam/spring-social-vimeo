@@ -1,5 +1,7 @@
 package org.springframework.social.vimeo.api;
 
+import org.springframework.social.vimeo.api.model.Activities;
+
 /**
  * User: soldier
  * Date: 2/7/12

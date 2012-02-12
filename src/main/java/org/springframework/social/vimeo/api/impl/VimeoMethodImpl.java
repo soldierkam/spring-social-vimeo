@@ -5,7 +5,7 @@ package org.springframework.social.vimeo.api.impl;
  * Date: 2/4/12
  * Time: 3:26 PM
  */
-public class VimeoMethodImpl implements VimeoMethod {
+class VimeoMethodImpl implements VimeoMethod {
 
     private final String name;
     private final String data;

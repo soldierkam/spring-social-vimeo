@@ -10,7 +10,7 @@ import java.net.URL;
  * Date: 2/3/12
  * Time: 5:38 PM
  */
-abstract public class ImageMixin {
+abstract class ImageMixin {
 
     @JsonCreator()
     ImageMixin(
@@ -19,5 +19,6 @@ abstract public class ImageMixin {
             @JsonProperty("height")
             Integer height,
             @JsonProperty("_content")
-            URL url) {}
+            URL url) {
+    }
 }

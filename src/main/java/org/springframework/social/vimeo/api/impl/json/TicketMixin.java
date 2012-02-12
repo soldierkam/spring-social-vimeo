@@ -12,7 +12,7 @@ import java.net.URL;
  * Time: 9:25 AM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TicketMixin {
+abstract class TicketMixin {
 
     @JsonCreator
     public TicketMixin(

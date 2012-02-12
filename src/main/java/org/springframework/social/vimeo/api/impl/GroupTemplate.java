@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
  * Date: 2/10/12
  * Time: 7:28 PM
  */
-public class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
+class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
 
     public GroupTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         super(restTemplate, mapper);

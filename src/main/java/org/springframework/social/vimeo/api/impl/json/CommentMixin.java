@@ -10,7 +10,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * Time: 9:44 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class CommentMixin {
+abstract class CommentMixin {
 
     @JsonCreator
     public CommentMixin(

@@ -2,7 +2,12 @@ package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.social.vimeo.api.*;
+import org.springframework.social.vimeo.api.StreamingUploader;
+import org.springframework.social.vimeo.api.UploadOperations;
+import org.springframework.social.vimeo.api.model.Chunk;
+import org.springframework.social.vimeo.api.model.Quota;
+import org.springframework.social.vimeo.api.model.Ticket;
+import org.springframework.social.vimeo.api.model.UploadMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -12,7 +17,7 @@ import java.util.List;
  * Date: 2/10/12
  * Time: 8:20 AM
  */
-public class UploadTemplate extends AbstractVimeoTemplate implements UploadOperations {
+class UploadTemplate extends AbstractVimeoTemplate implements UploadOperations {
 
     private final static VimeoMethod QUOTA = new VimeoMethodImpl("vimeo.videos.upload.getQuota", "");
     private final static VimeoMethod TICKET = new VimeoMethodImpl("vimeo.videos.upload.getTicket", "");
@@ -73,8 +78,13 @@ public class UploadTemplate extends AbstractVimeoTemplate implements UploadOpera
     }
 
     @Override
+    public String verifyManifest(String ticketId, String jsonManifest, String xmlManifest) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<Chunk> verifyChunks(String ticketId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
     }
 }
 

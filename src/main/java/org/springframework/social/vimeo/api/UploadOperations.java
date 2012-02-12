@@ -1,5 +1,10 @@
 package org.springframework.social.vimeo.api;
 
+import org.springframework.social.vimeo.api.model.Chunk;
+import org.springframework.social.vimeo.api.model.Quota;
+import org.springframework.social.vimeo.api.model.Ticket;
+import org.springframework.social.vimeo.api.model.UploadMethod;
+
 import java.util.List;
 
 /**
@@ -44,8 +49,23 @@ public interface UploadOperations {
      * you uploaded multiple files, you must POST a manifest to this method. You
      * can use either an XML or JSON formatted manifest. The manifest should not
      * be included in the signature.
+     *
+     * @deprecated Please use vimeo.videos.upload.complete.
      */
+    @Deprecated
     String confirm(String ticketId, String filenameWithExtension, String jsonManifest, String xmlManifest);
+
+    /**
+     * Verify and combine any pieces uploaded.
+     * <p/>
+     * Once the video is uploaded you must provide the MD5s of each piece that was
+     * uploaded. If you uploaded several pieces, the order of the pieces in the
+     * list dictates the order in which they will be combined. The server will
+     * return the MD5 of the entire file, and a list of the MD5s of any files that
+     * you uploaded but did not include in the manifest. You can use either an XML
+     * or JSON formatted manifest. It should not be included in the signature.
+     */
+    String verifyManifest(String ticketId, String jsonManifest, String xmlManifest);
 
     /**
      * Verify that the chunks were uploaded properly.

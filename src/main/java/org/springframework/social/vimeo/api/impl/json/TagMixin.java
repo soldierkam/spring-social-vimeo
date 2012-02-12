@@ -10,7 +10,7 @@ import java.net.URL;
  * Date: 2/3/12
  * Time: 5:40 PM
  */
-abstract public class TagMixin {
+abstract class TagMixin {
 
     @JsonCreator()
     TagMixin(

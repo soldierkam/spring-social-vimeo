@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 7:41 PM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class ChannelMixin {
+abstract class ChannelMixin {
 
     @JsonCreator
     public ChannelMixin(

@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.springframework.social.vimeo.api.UploadSpace;
+import org.springframework.social.vimeo.api.model.UploadSpace;
 
 /**
  * User: soldier
@@ -12,7 +12,7 @@ import org.springframework.social.vimeo.api.UploadSpace;
  * Time: 8:07 AM
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract public class QuotaMixin {
+abstract class QuotaMixin {
 
     @JsonCreator
     protected QuotaMixin(

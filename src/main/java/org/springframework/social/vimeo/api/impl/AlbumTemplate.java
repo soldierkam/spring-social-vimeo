@@ -1,7 +1,10 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.social.vimeo.api.*;
+import org.springframework.social.vimeo.api.AlbumOperations;
+import org.springframework.social.vimeo.api.model.Albums;
+import org.springframework.social.vimeo.api.model.AlbumsSortMethod;
+import org.springframework.social.vimeo.api.model.Videos;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
@@ -11,7 +14,7 @@ import java.util.Collection;
  * Date: 2/3/12
  * Time: 6:12 PM
  */
-public class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations{
+class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
 
     private final static VimeoMethod WATCH_LATER_LIST = new VimeoMethodImpl("vimeo.albums.getWatchLater", "videos");
     private final static VimeoMethod WATCH_LATER_ADD = new VimeoMethodImpl("vimeo.albums.addToWatchLater");

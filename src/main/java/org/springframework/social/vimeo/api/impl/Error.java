@@ -5,5 +5,5 @@ package org.springframework.social.vimeo.api.impl;
  * Date: 2/4/12
  * Time: 2:47 PM
  */
-public class Error {
+class Error {
 }

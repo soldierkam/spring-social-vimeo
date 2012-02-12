@@ -1,7 +1,8 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.social.vimeo.api.*;
+import org.springframework.social.vimeo.api.VideoOperations;
+import org.springframework.social.vimeo.api.model.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
@@ -12,7 +13,7 @@ import java.util.List;
  * Date: 2/3/12
  * Time: 6:13 PM
  */
-public class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
+class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
 
     private final static VimeoMethod SEARCH_METHOD = new VimeoMethodImpl("vimeo.videos.search", "videos");
     private final static VimeoMethod ADD_CAST = new VimeoMethodImpl("vimeo.videos.addCast");

@@ -16,7 +16,7 @@ import java.util.List;
  * Date: 2/3/12
  * Time: 5:27 PM
  */
-abstract public class AbstractArrayJsonDeserializer<T> extends JsonDeserializer<List<T>> {
+abstract class AbstractArrayJsonDeserializer<T> extends JsonDeserializer<List<T>> {
 
     private final String fieldName;
 
