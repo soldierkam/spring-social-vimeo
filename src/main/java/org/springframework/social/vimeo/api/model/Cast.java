@@ -7,7 +7,7 @@ import java.net.URL;
  * Date: 11.02.12
  * Time: 23:28
  */
-public class Cast extends Person {
+public class Cast extends ProPerson {
     private String cast;
 
     protected Cast(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl, String cast) {

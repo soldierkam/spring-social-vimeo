@@ -13,14 +13,14 @@ public class Activity {
     private Integer id;
     private ActivityType type;
     private Date time;
-    private Person user;
+    private ProPerson user;
     private List<Video> videos;
     private List<Comment> comments;
-    private Group group;
+    private GroupActivity group;
     private Forum forum;
     private Channel channel;
 
-    protected Activity(Integer id, ActivityType type, Date time, Person user, List<Video> video, List<Comment> comment, Group group, Forum forum, Channel channel) {
+    protected Activity(Integer id, ActivityType type, Date time, ProPerson user, List<Video> video, List<Comment> comment, GroupActivity group, Forum forum, Channel channel) {
         this.id = id;
         this.type = type;
         this.time = time;
@@ -42,7 +42,7 @@ public class Activity {
         return time;
     }
 
-    public Person getUser() {
+    public ProPerson getUser() {
         return user;
     }
 
@@ -54,7 +54,7 @@ public class Activity {
         return comments;
     }
 
-    public Group getGroup() {
+    public GroupActivity getGroup() {
         return group;
     }
 

@@ -7,7 +7,7 @@ import java.net.URL;
  * Date: 2/9/12
  * Time: 6:18 PM
  */
-public class Contact extends Person {
+public class Contact extends ProPerson {
 
     private Boolean mutual;
 

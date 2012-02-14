@@ -7,7 +7,7 @@ import java.net.URL;
  * Date: 2/8/12
  * Time: 10:27 PM
  */
-public class Moderator extends Person {
+public class Moderator extends ProPerson {
     private Boolean creator;
 
     protected Moderator(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl) {

@@ -57,7 +57,7 @@ public class VideoTemplateTest extends AbstractVimeoApiTest {
 
         Casts cast = vimeo.videoOperations().cast("12345", null, null);
         assertEquals(Integer.valueOf(1), cast.getTotal());
-        Person p = cast.getCasts().get(0);
+        ProPerson p = cast.getCasts().get(0);
         assertNotNull(p.getDisplayName());
         assertEquals("3148077", p.getId());
         assertTrue(p.getPlus());
@@ -74,7 +74,7 @@ public class VideoTemplateTest extends AbstractVimeoApiTest {
 
         Casts cast = vimeo.videoOperations().cast("12345", null, null);
         assertEquals(Integer.valueOf(2), cast.getTotal());
-        for (Person p : cast.getCasts()) {
+        for (ProPerson p : cast.getCasts()) {
             assertNotNull(p.getDisplayName());
             assertNotNull(p.getId());
             assertNotNull(p.getPlus());

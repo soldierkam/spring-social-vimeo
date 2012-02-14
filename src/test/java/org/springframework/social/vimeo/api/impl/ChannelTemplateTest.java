@@ -92,7 +92,7 @@ public class ChannelTemplateTest extends AbstractVimeoApiTest {
         People people = vimeo.channelOperations().subscribers("sencha", null, null);
         assertEquals(50, people.getOnThisPage().intValue());
         assertEquals(1, people.getPage().intValue());
-        for (Person person : people.getMembers()) {
+        for (ProPerson person : people.getMembers()) {
             assertNotNull(person.getId());
             assertFalse(CollectionUtils.isEmpty(person.getPortraits()));
         }

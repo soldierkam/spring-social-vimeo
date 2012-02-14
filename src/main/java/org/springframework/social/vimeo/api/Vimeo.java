@@ -23,5 +23,7 @@ public interface Vimeo {
 
     GroupOperations groupOperations();
 
+    PeopleOperations peopleOperations();
+
     RestTemplate restTemplate();
 }

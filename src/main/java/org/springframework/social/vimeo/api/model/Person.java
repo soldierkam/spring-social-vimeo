@@ -5,48 +5,29 @@ import java.util.List;
 
 /**
  * User: soldier
- * Date: 2/3/12
- * Time: 3:59 PM
+ * Date: 14.02.12
+ * Time: 21:23
  */
-public class Person {
+public class Person extends SimplePerson {
 
-    private String id;
-    private String displayName;
     private Boolean plus;
-    private Boolean pro;
     private Boolean staff;
     private URL profileUrl;
     private String realName;
-    private String userName;
     private URL videosUrl;
     private List<Portrait> portraits;
 
-    protected Person(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl) {
-        this.id = id;
-        this.displayName = displayName;
+    protected Person(String id, String displayName, Boolean plus, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl) {
+        super(id, userName, displayName);
         this.plus = plus;
-        this.pro = pro;
         this.staff = staff;
         this.profileUrl = profileUrl;
         this.realName = realName;
-        this.userName = userName;
         this.videosUrl = videosUrl;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getDisplayName() {
-        return displayName;
     }
 
     public Boolean getPlus() {
         return plus;
-    }
-
-    public Boolean getPro() {
-        return pro;
     }
 
     public Boolean getStaff() {
@@ -59,10 +40,6 @@ public class Person {
 
     public String getRealName() {
         return realName;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public URL getVideosUrl() {

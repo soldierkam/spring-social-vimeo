@@ -23,9 +23,9 @@ public class ChannelInfo extends Channel {
     private ChannelLayout layout;
     private String theme;
     private Privacy privacy;
-    private Person creator;
+    private ProPerson creator;
 
-    protected ChannelInfo(String id, Boolean featured, Boolean sponsored, Boolean subscribed, String name, String description, Date createdOn, Date modifiedOn, Integer totalVideos, Integer totalSubscribers, URL logoUrl, URL badgeUrl, URL thumbnailUrl, List<URL> urls, ChannelLayout layout, String theme, Privacy privacy, Person creator) {
+    protected ChannelInfo(String id, Boolean featured, Boolean sponsored, Boolean subscribed, String name, String description, Date createdOn, Date modifiedOn, Integer totalVideos, Integer totalSubscribers, URL logoUrl, URL badgeUrl, URL thumbnailUrl, List<URL> urls, ChannelLayout layout, String theme, Privacy privacy, ProPerson creator) {
         super(id, name, logoUrl, urls);
         this.featured = featured;
         this.sponsored = sponsored;
@@ -95,7 +95,7 @@ public class ChannelInfo extends Channel {
         return privacy;
     }
 
-    public Person getCreator() {
+    public ProPerson getCreator() {
         return creator;
     }
 }

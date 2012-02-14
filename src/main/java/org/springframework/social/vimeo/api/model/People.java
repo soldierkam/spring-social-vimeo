@@ -8,24 +8,24 @@ import java.util.List;
  * Time: 8:00 PM
  */
 public class People extends Paging {
-    private List<Person> members;
+    private List<ProPerson> members;
 
-    protected People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Person> members) {
+    protected People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<ProPerson> members) {
         super(onThisPage, page, perPage, total);
         this.members = members;
     }
 
-    protected People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Person> members, Integer i) {
+    protected People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<ProPerson> members, Integer i) {
         super(onThisPage, page, perPage, total);
         this.members = members;
     }
 
-    protected People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Person> members, String i) {
+    protected People(Integer onThisPage, Integer page, Integer perPage, Integer total, List<ProPerson> members, String i) {
         super(onThisPage, page, perPage, total);
         this.members = members;
     }
 
-    public List<Person> getMembers() {
+    public List<ProPerson> getMembers() {
         return members;
     }
 }

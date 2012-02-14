@@ -1,0 +1,24 @@
+{
+  "generated_in":"0.0126",
+  "stat":"ok",
+  "subscriptions":{
+    "on_this_page":"3",
+    "page":"1",
+    "perpage":"50",
+    "total":"3",
+    "subscription":[
+      {
+        "subject_id":"151382",
+        "type":"likes"
+      },
+      {
+        "subject_id":"778",
+        "type":"channel"
+      },
+      {
+        "subject_id":"927",
+        "type":"channel"
+      }
+    ]
+  }
+}

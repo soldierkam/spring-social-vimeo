@@ -5,8 +5,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.springframework.social.vimeo.api.model.ChannelLayout;
-import org.springframework.social.vimeo.api.model.Person;
 import org.springframework.social.vimeo.api.model.Privacy;
+import org.springframework.social.vimeo.api.model.ProPerson;
 
 import java.net.URL;
 import java.util.Date;
@@ -62,7 +62,7 @@ abstract class ChannelInfoMixin {
             @JsonDeserialize(using = PrivacyJsonDeserilizer.class)
             Privacy privacy,
             @JsonProperty("creator")
-            Person creator
+            ProPerson creator
     ) {
     }
 }

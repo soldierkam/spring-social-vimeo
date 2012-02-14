@@ -3,20 +3,20 @@ package org.springframework.social.vimeo.api.impl.json;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.social.vimeo.api.model.ProPerson;
+import org.springframework.social.vimeo.api.model.GroupModerator;
 
 import java.util.List;
 
 /**
  * User: soldier
- * Date: 2/6/12
- * Time: 8:01 PM
+ * Date: 14.02.12
+ * Time: 21:40
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class PeopleMixin {
+abstract class GroupModeratorsMixin {
 
     @JsonCreator
-    protected PeopleMixin(
+    protected GroupModeratorsMixin(
             @JsonProperty(value = "on_this_page")
             Integer onThisPage,
             @JsonProperty(value = "page")
@@ -25,11 +25,8 @@ abstract class PeopleMixin {
             Integer perPage,
             @JsonProperty(value = "total")
             Integer total,
-            @JsonProperty(value = "member")
-            List<ProPerson> members) {
+            @JsonProperty(value = "moderator")
+            List<GroupModerator> moderators
+    ) {
     }
-
-    @JsonProperty(value = "subscriber")
-    List<ProPerson> members;
-
 }

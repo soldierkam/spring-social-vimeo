@@ -23,7 +23,7 @@ public interface ChannelOperations {
     /**
      * Get a list of the channels that a user moderates.
      */
-    ChannelInfos moderated(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy);
+    ChannelInfos moderated(String userId, Integer page, Integer perPage, VideoCollectionSortMethod sortBy);
 
     /**
      * Get a list of the channel's moderators.
@@ -48,7 +48,7 @@ public interface ChannelOperations {
     /**
      * Get a list of all public channels.
      */
-    Channels all(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy);
+    Channels all(String userId, Integer page, Integer perPage, VideoCollectionSortMethod sortBy);
 
     /**
      * Get a list of the channel's subscribers.

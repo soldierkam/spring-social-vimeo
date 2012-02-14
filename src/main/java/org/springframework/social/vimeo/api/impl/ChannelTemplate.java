@@ -36,7 +36,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
     }
 
     @Override
-    public ChannelInfos moderated(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy) {
+    public ChannelInfos moderated(String userId, Integer page, Integer perPage, VideoCollectionSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
@@ -63,7 +63,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
     }
 
     @Override
-    public Channels all(String userId, Integer page, Integer perPage, ChannelSortMethod sortBy) {
+    public Channels all(String userId, Integer page, Integer perPage, VideoCollectionSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
         params.addIfNotNull("user_id", userId);
         params.addIfNotNull("page", page);

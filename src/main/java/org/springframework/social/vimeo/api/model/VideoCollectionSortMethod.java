@@ -5,7 +5,7 @@ package org.springframework.social.vimeo.api.model;
  * Date: 2/8/12
  * Time: 7:48 PM
  */
-public enum ChannelSortMethod {
+public enum VideoCollectionSortMethod {
     NEWEST,
     OLDEST,
     ALPHABETICAL,

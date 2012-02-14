@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * User: soldier
  * Date: 14.02.12
- * Time: 21:26
+ * Time: 21:32
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class PersonMixin {
+abstract class GroupModeratorMixin {
 
     @JsonCreator
-    protected PersonMixin(
+    protected GroupModeratorMixin(
             @JsonProperty("id")
             String id,
             @JsonProperty("display_name")
@@ -36,12 +36,12 @@ abstract class PersonMixin {
             @JsonProperty("username")
             String userName,
             @JsonProperty("videosurl")
-            URL videosUrl
-    ) {
+            URL videosUrl,
+            @JsonProperty("moderator_title")
+            String title) {
     }
 
     @JsonProperty("portraits")
     @JsonDeserialize(using = PortraitJsonDeserilizer.class)
     List<Portrait> portraits;
 }
-

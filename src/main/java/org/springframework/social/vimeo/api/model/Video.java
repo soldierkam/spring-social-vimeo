@@ -27,10 +27,10 @@ public class Video {
     private Integer width;
     private Integer height;
     private Integer duration;
-    private Person owner;
+    private ProPerson owner;
     private List<Image> thumbnails;
 
-    protected Video(Boolean allowAdds, String embedPrivacy, Integer id, Boolean hd, Boolean transcoding, Boolean license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, Person owner) {
+    protected Video(Boolean allowAdds, String embedPrivacy, Integer id, Boolean hd, Boolean transcoding, Boolean license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, ProPerson owner) {
         this.allowAdds = allowAdds;
         this.embedPrivacy = embedPrivacy;
         this.id = id;
@@ -119,7 +119,7 @@ public class Video {
         return duration;
     }
 
-    public Person getOwner() {
+    public ProPerson getOwner() {
         return owner;
     }
 

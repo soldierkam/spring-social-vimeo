@@ -27,13 +27,13 @@ abstract class ActivityMixin {
             @JsonProperty("time")
             Date time,
             @JsonProperty("active_user")
-            Person user,
+            ProPerson user,
             @JsonProperty("video")
             List<Video> video,
             @JsonProperty("comment")
             List<Comment> comment,
             @JsonProperty("group")
-            Group group,
+            GroupActivity group,
             @JsonProperty("forum")
             Forum forum,
             @JsonProperty("channel")
