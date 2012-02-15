@@ -11,6 +11,7 @@ import java.util.Collection;
  * Date: 2/3/12
  * Time: 3:04 PM
  */
+//TODO: videoId should be Long
 public interface AlbumOperations {
 
     void addToWatchLater(String videoId);

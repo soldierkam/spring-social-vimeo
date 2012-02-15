@@ -1,6 +1,7 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.social.ApiException;
 import org.springframework.social.vimeo.api.ActivityOperations;
 import org.springframework.social.vimeo.api.model.Activities;
 import org.springframework.web.client.RestTemplate;
@@ -12,8 +13,18 @@ import org.springframework.web.client.RestTemplate;
  */
 class ActivityTemplate extends AbstractVimeoTemplate implements ActivityOperations {
 
-    private final static VimeoMethod HAPPENED = new VimeoMethodImpl("vimeo.activity.happenedToUser", "activities");
-    private final static VimeoMethod DID = new VimeoMethodImpl("vimeo.activity.userDid", "activities");
+    private final static VimeoMethod HAPPENED = new VimeoMethodImpl("vimeo.activity.happenedToUser", "activities") {
+        {
+            //User not found
+            add(1, ApiException.class);//The user id or name was either not valid or not provided.
+        }
+    };
+    private final static VimeoMethod DID = new VimeoMethodImpl("vimeo.activity.userDid", "activities") {
+        {
+            //User not found
+            add(1, ApiException.class);//The user id or name was either not valid or not provided.
+        }
+    };
 
     public ActivityTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         super(restTemplate, mapper);

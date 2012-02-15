@@ -11,6 +11,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * User: soldier
@@ -19,14 +20,13 @@ import java.util.Map;
  */
 public class VimeoErrorHandler extends DefaultResponseErrorHandler {
 
-    private final Map<Integer, Class<? extends RuntimeException>> commonErrors = new HashMap<Integer, Class<? extends RuntimeException>>();
+    private final static Map<Integer, Class<? extends RuntimeException>> commonErrors = new HashMap<Integer, Class<? extends RuntimeException>>();
     private final ObjectMapper objectMapper;
+    private final Pattern ERROR_RESPONSE_PATTERN = Pattern.compile("\"stat\"\\s*:\\s*\"fail\"", Pattern.DOTALL | Pattern.MULTILINE);
 
-    public VimeoErrorHandler(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    {
         commonErrors.put(96, InvalidAuthorizationException.class);//Invalid signature The api_sig passed was not valid.
-        commonErrors.put(97, MissingAuthorizationException.class);//Missing signature A s
-        // ignature was not passed.
+        commonErrors.put(97, MissingAuthorizationException.class);//Missing signature A signature was not passed.
         commonErrors.put(98, InvalidAuthorizationException.class);//Login failed / Invalid auth token The login details or auth token passed were invalid.
         commonErrors.put(100, InvalidAuthorizationException.class);//Invalid API Key The API key passed was not valid.
         commonErrors.put(105, InvalidAuthorizationException.class);//Service currently unavailable The requested service is temporarily unavailable.
@@ -43,53 +43,59 @@ public class VimeoErrorHandler extends DefaultResponseErrorHandler {
         commonErrors.put(999, RateLimitExceededException.class);//Rate limit exceeded Please wait a few minutes before trying again.
     }
 
+    public VimeoErrorHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
         if (super.hasError(response)) {
             return true;
         }
         String content = IOUtils.toString(response.getBody());
-        return content.contains("\"stat\":\"error\"");
+        return ERROR_RESPONSE_PATTERN.matcher(content).find();
     }
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
         Error error = readResponse(response);
-        if (commonErrors.containsKey(error.getCode())) {
-            handleCommonError(error);
+        if (error == null) {
+            super.handleError(response);
         } else {
-            handleMethodSpecificError(error);
+            if (commonErrors.containsKey(error.getCode())) {
+                handleCommonError(error);
+            } else {
+                handleMethodSpecificError(error, response);
+            }
         }
     }
 
     private void handleCommonError(Error error) {
-        RuntimeException excInstance = constructException(error, commonErrors);
+        Class<? extends RuntimeException> exceptionClass = commonErrors.get(error.getCode());
+        RuntimeException excInstance = build(error, exceptionClass);
         throw excInstance;
     }
 
-    private RuntimeException constructException(Error err, Map<Integer, Class<? extends RuntimeException>> error2exception) {
-        Class<? extends RuntimeException> exceptionClass = error2exception.get(err.getCode());
+    public static RuntimeException build(Error err, Class<? extends RuntimeException> exceptionClass) {
         if (exceptionClass == null) {
             throw new ApiException("Unsupported error response: " + err.toString());
         }
-        for (Constructor<?> excConstructor : exceptionClass.getConstructors()) {
-            Class<?> paramTypes[] = excConstructor.getParameterTypes();
-            if (paramTypes.length == 1 && String.class.equals(paramTypes[0].getClass())) {
-                try {
-                    return (RuntimeException) excConstructor.newInstance(err.getMsg());
-                } catch (InstantiationException exc) {
-                    throwException(exceptionClass, err, exc);
-                } catch (IllegalAccessException exc) {
-                    throwException(exceptionClass, err, exc);
-                } catch (InvocationTargetException exc) {
-                    throwException(exceptionClass, err, exc);
-                }
-            }
+        try {
+            Constructor<? extends RuntimeException> excConstructor = exceptionClass.getConstructor(String.class);
+            return excConstructor.newInstance(err.getMsg());
+        } catch (NoSuchMethodException exc) {
+            throwException(exceptionClass, err, exc);
+        } catch (InstantiationException exc) {
+            throwException(exceptionClass, err, exc);
+        } catch (IllegalAccessException exc) {
+            throwException(exceptionClass, err, exc);
+        } catch (InvocationTargetException exc) {
+            throwException(exceptionClass, err, exc);
         }
         return throwException(exceptionClass, err, null);
     }
 
-    private RuntimeException throwException(Class<? extends RuntimeException> exceptionClass, Error err, Exception cause) {
+    public static RuntimeException throwException(Class<? extends RuntimeException> exceptionClass, Error err, Exception cause) {
         final String msg = "Cannot build exception " + exceptionClass.getName() + " for response " + err.toString();
         if (cause == null) {
             throw new ApiException(msg);
@@ -98,13 +104,17 @@ public class VimeoErrorHandler extends DefaultResponseErrorHandler {
         }
     }
 
-    private void handleMethodSpecificError(Error error) {
-        throw new UnsupportedOperationException(error.getMsg());
+    private void handleMethodSpecificError(Error error, ClientHttpResponse response) {
+        throw new MethodSpecificErrorException(error);
     }
 
     private Error readResponse(ClientHttpResponse response) throws IOException {
-        ErrorResponse decodedJson = objectMapper.readValue(response.getBody(), ErrorResponse.class);
-        return decodedJson.getError();
+        try {
+            ErrorResponse decodedJson = objectMapper.readValue(response.getBody(), ErrorResponse.class);
+            return decodedJson.getError();
+        } catch (Exception exc) {
+            return null;
+        }
     }
 
 }

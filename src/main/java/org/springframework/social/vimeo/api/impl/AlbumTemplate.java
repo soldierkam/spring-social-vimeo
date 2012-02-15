@@ -1,6 +1,8 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.social.OperationNotPermittedException;
+import org.springframework.social.vimeo.*;
 import org.springframework.social.vimeo.api.AlbumOperations;
 import org.springframework.social.vimeo.api.model.Albums;
 import org.springframework.social.vimeo.api.model.AlbumsSortMethod;
@@ -16,18 +18,70 @@ import java.util.Collection;
  */
 class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
 
-    private final static VimeoMethod WATCH_LATER_LIST = new VimeoMethodImpl("vimeo.albums.getWatchLater", "videos");
-    private final static VimeoMethod WATCH_LATER_ADD = new VimeoMethodImpl("vimeo.albums.addToWatchLater");
-    private final static VimeoMethod WATCH_LATER_REMOVE = new VimeoMethodImpl("vimeo.albums.removeFromWatchLater");
-    private final static VimeoMethod DELETE = new VimeoMethodImpl("vimeo.albums.delete");
-    private final static VimeoMethod CREATE = new VimeoMethodImpl("vimeo.albums.create", "album");
-    private final static VimeoMethod DESCRIPTION = new VimeoMethodImpl("vimeo.albums.setDescription");
-    private final static VimeoMethod TITLE = new VimeoMethodImpl("vimeo.albums.setTitle");
-    private final static VimeoMethod PASSWD = new VimeoMethodImpl("vimeo.albums.setPassword");
-    private final static VimeoMethod LIST = new VimeoMethodImpl("vimeo.albums.getAll", "albums");
-    private final static VimeoMethod VIDEO_ADD = new VimeoMethodImpl("vimeo.albums.addVideo");
-    private final static VimeoMethod VIDEO_DETACH = new VimeoMethodImpl("vimeo.albums.removeVideo");
-    private final static VimeoMethod VIDEO_LIST = new VimeoMethodImpl("vimeo.albums.getVideos", "videos");
+    private final static VimeoMethod WATCH_LATER_LIST = new VimeoMethodImpl("vimeo.albums.getWatchLater", "videos") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod WATCH_LATER_ADD = new VimeoMethodImpl("vimeo.albums.addToWatchLater") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod WATCH_LATER_REMOVE = new VimeoMethodImpl("vimeo.albums.removeFromWatchLater") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod DELETE = new VimeoMethodImpl("vimeo.albums.delete") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod CREATE = new VimeoMethodImpl("vimeo.albums.create", "album") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, AlbumLimitReachedException.class);
+            add(3, BlankTitleException.class);
+        }
+    };
+    private final static VimeoMethod DESCRIPTION = new VimeoMethodImpl("vimeo.albums.setDescription") {
+        {
+            add(1, AlbumNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod TITLE = new VimeoMethodImpl("vimeo.albums.setTitle") {
+        {
+            add(1, AlbumNotFoundException.class);
+            add(3, BlankTitleException.class);
+        }
+    };
+    private final static VimeoMethod PASSWD = new VimeoMethodImpl("vimeo.albums.setPassword") {
+        {
+            add(1, AlbumNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod LIST = new VimeoMethodImpl("vimeo.albums.getAll", "albums") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod VIDEO_ADD = new VimeoMethodImpl("vimeo.albums.addVideo") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(3, OperationNotPermittedException.class);
+        }
+    };
+    private final static VimeoMethod VIDEO_DETACH = new VimeoMethodImpl("vimeo.albums.removeVideo") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod VIDEO_LIST = new VimeoMethodImpl("vimeo.albums.getVideos", "videos") {
+        {
+            add(1, AlbumNotFoundException.class);
+        }
+    };
 
     public AlbumTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         super(restTemplate, mapper);

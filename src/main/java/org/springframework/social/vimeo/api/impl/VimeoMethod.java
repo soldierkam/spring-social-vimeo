@@ -11,5 +11,7 @@ interface VimeoMethod {
 
     String dataNodeName();
 
+    Class<? extends RuntimeException> getErrorHandler(Integer code);
+
     boolean hasDataNodeName();
 }

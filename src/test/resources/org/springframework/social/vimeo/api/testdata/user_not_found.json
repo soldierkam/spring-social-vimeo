@@ -1,0 +1,9 @@
+{
+  "generated_in":"0.0069",
+  "stat":"fail",
+  "err":{
+    "code":"1",
+    "expl":"The user id or name was either not valid or not provided",
+    "msg":"User not found"
+  }
+}

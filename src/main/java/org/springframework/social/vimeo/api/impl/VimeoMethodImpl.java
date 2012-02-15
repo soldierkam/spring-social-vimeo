@@ -1,5 +1,8 @@
 package org.springframework.social.vimeo.api.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * User: soldier
  * Date: 2/4/12
@@ -9,6 +12,7 @@ class VimeoMethodImpl implements VimeoMethod {
 
     private final String name;
     private final String data;
+    private final Map<Integer, Class<? extends RuntimeException>> handlers = new HashMap<Integer, Class<? extends RuntimeException>>();
 
     public VimeoMethodImpl(String name, String root) {
         this.name = name;
@@ -18,6 +22,15 @@ class VimeoMethodImpl implements VimeoMethod {
     public VimeoMethodImpl(String name) {
         this.name = name;
         this.data = null;
+    }
+
+    public void add(Integer code, Class<? extends RuntimeException> clazz) {
+        handlers.put(code, clazz);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> getErrorHandler(Integer code) {
+        return handlers.get(code);
     }
 
     @Override

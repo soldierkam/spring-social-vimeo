@@ -36,24 +36,33 @@ class AbstractVimeoTemplate {
     }
 
     protected <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
-        JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
-        JsonNode data = node.get(method.dataNodeName());
-        return deserializeDataList(data, type);
+        try {
+            JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+            JsonNode data = node.get(method.dataNodeName());
+            return deserializeDataList(data, type);
+        } catch (MethodSpecificErrorException exc) {
+            handleMethodSpecificError(exc, method);
+            return null;
+        }
     }
 
-    <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
-        JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
-        if (method.hasDataNodeName()) {
-            if (!node.has(method.dataNodeName())) {
-                throw new ApiException("Invalid JSON response: missing field \"" + method.dataNodeName() + "\"");
-            }
-            node = node.get(method.dataNodeName());
-        }
+    protected <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         try {
+            JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+            if (method.hasDataNodeName()) {
+                if (!node.has(method.dataNodeName())) {
+                    throw new ApiException("Invalid JSON response: missing field \"" + method.dataNodeName() + "\"");
+                }
+                node = node.get(method.dataNodeName());
+            }
             return objectMapper.readValue(node, type);
         } catch (IOException e) {
             throw new UncategorizedApiException("Error deserializing data from Vimeo: " + e.getMessage(), e);
+        } catch (MethodSpecificErrorException exc) {
+            handleMethodSpecificError(exc, method);
+            return null;
         }
+
     }
 
     private MultiValueMap<String, Object> createParamsMap(VimeoMethod method, MultiValueMap<String, Object> p) {
@@ -64,7 +73,11 @@ class AbstractVimeoTemplate {
     }
 
     protected void doMethod(VimeoMethod method, MultiValueMap<String, Object> p) {
-        restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+        try {
+            restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+        } catch (MethodSpecificErrorException exc) {
+            handleMethodSpecificError(exc, method);
+        }
     }
 
     protected String doAction(VimeoMethod method, MultiValueMap<String, Object> p) {
@@ -83,6 +96,12 @@ class AbstractVimeoTemplate {
         } catch (IOException e) {
             throw new UncategorizedApiException("Error deserializing data from Vimeo: " + e.getMessage(), e);
         }
+    }
+
+    private void handleMethodSpecificError(MethodSpecificErrorException exc, VimeoMethod method) {
+        Class<? extends RuntimeException> clazz = method.getErrorHandler(exc.getError().getCode());
+        RuntimeException newExc = VimeoErrorHandler.build(exc.getError(), clazz);
+        throw newExc;
     }
 
     protected class ParamsBuilder {

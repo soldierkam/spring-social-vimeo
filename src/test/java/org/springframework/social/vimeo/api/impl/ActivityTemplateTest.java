@@ -1,11 +1,11 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.junit.Test;
+import org.springframework.social.ApiException;
 import org.springframework.social.vimeo.api.model.Activities;
 import org.springframework.social.vimeo.api.model.Activity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.social.test.client.RequestMatchers.*;
 import static org.springframework.social.test.client.ResponseCreators.withResponse;
@@ -33,6 +33,17 @@ public class ActivityTemplateTest extends AbstractVimeoApiTest {
             assertNotNull(activity.getUser());
             assertNotNull(activity.getType());
         }
+    }
+
+    @Test(expected = ApiException.class)
+    public void testCallHappenedToUserWithInvalidUserId() {
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("user_not_found"), responseHeaders));
+
+        Activities activities = vimeo.activityOperations().happenedToUser("x_as", null, null);
+        fail();
     }
 
     @Test

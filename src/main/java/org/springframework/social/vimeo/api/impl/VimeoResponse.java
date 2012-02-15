@@ -12,11 +12,11 @@ import org.codehaus.jackson.annotate.JsonProperty;
 class VimeoResponse {
 
     @JsonProperty("generated_in")
-    private Integer generateIn;
+    private Double generateIn;
     @JsonProperty("stat")
     private VimeoResponseType stat;
 
-    public Integer getGenerateIn() {
+    public Double getGenerateIn() {
         return generateIn;
     }
 

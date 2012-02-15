@@ -1,6 +1,8 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.social.OperationNotPermittedException;
+import org.springframework.social.vimeo.*;
 import org.springframework.social.vimeo.api.ChannelOperations;
 import org.springframework.social.vimeo.api.model.*;
 import org.springframework.web.client.RestTemplate;
@@ -12,16 +14,62 @@ import org.springframework.web.client.RestTemplate;
  */
 class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations {
 
-    private final static VimeoMethod ADD_VIDEO = new VimeoMethodImpl("vimeo.channels.addVideo");
-    private final static VimeoMethod REMOVE_VIDEO = new VimeoMethodImpl("vimeo.channels.removeVideo");
-    private final static VimeoMethod MODERATED = new VimeoMethodImpl("vimeo.channels.getModerated", "channels");
-    private final static VimeoMethod MODERATORS = new VimeoMethodImpl("vimeo.channels.getModerators", "moderators");
-    private final static VimeoMethod VIDEOS = new VimeoMethodImpl("vimeo.channels.getVideos", "videos");
-    private final static VimeoMethod UNSUBSCRIBE = new VimeoMethodImpl("vimeo.channels.unsubscribe");
-    private final static VimeoMethod SUBSCRIBE = new VimeoMethodImpl("vimeo.channels.subscribe");
-    private final static VimeoMethod SUBSCRIBERS = new VimeoMethodImpl("vimeo.channels.getSubscribers", "subscribers");
-    private final static VimeoMethod ALL = new VimeoMethodImpl("vimeo.channels.getAll", "channels");
-    private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.channels.getInfo", "channel");
+    private final static VimeoMethod ADD_VIDEO = new VimeoMethodImpl("vimeo.channels.addVideo") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, UserNotModeratorException.class);
+            add(3, OperationNotPermittedException.class);
+        }
+    };
+    private final static VimeoMethod REMOVE_VIDEO = new VimeoMethodImpl("vimeo.channels.removeVideo") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, UserNotModeratorException.class);
+            add(3, VideoNotInChannelException.class);
+        }
+    };
+    private final static VimeoMethod MODERATED = new VimeoMethodImpl("vimeo.channels.getModerated", "channels") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod MODERATORS = new VimeoMethodImpl("vimeo.channels.getModerators", "moderators") {
+        {
+            add(1, ChannelNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod VIDEOS = new VimeoMethodImpl("vimeo.channels.getVideos", "videos") {
+        {
+            add(1, ChannelNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod UNSUBSCRIBE = new VimeoMethodImpl("vimeo.channels.unsubscribe") {
+        {
+            add(1, ChannelNotFoundException.class);
+            add(2, NotSubscribedException.class);
+        }
+    };
+    private final static VimeoMethod SUBSCRIBE = new VimeoMethodImpl("vimeo.channels.subscribe") {
+        {
+            add(1, ChannelNotFoundException.class);
+            add(2, AlreadySubscribedException.class);
+        }
+    };
+    private final static VimeoMethod SUBSCRIBERS = new VimeoMethodImpl("vimeo.channels.getSubscribers", "subscribers") {
+        {
+            add(1, ChannelNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod ALL = new VimeoMethodImpl("vimeo.channels.getAll", "channels") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.channels.getInfo", "channel") {
+        {
+            add(1, ChannelNotFoundException.class);
+        }
+    };
 
     public ChannelTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         super(restTemplate, mapper);
