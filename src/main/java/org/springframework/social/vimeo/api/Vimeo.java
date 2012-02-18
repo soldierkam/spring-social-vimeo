@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
  */
 public interface Vimeo {
 
+    OAuthOperations authOperations();
+
     AlbumOperations albumOperations();
 
     VideoOperations videoOperations();

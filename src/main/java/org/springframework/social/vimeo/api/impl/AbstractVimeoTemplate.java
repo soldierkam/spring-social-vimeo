@@ -107,13 +107,23 @@ class AbstractVimeoTemplate {
     protected class ParamsBuilder {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>(10);
 
-        public void addIfNotNull(String name, Object value) {
+        public void addIfNotNull(String name, Integer value, Integer max) {
             if (name == null) {
                 throw new IllegalArgumentException();
             }
             if (value != null) {
+                if (max != null && value > max) {
+                    throw new IllegalArgumentException("Value is bigger than max");
+                }
                 doAdd(name, value);
             }
+        }
+
+        public void addIfNotNull(String name, Object value) {
+            if (value == null || name == null) {
+                throw new IllegalArgumentException();
+            }
+            doAdd(name, value);
         }
 
         public void add(String name, Object value) {
@@ -121,6 +131,16 @@ class AbstractVimeoTemplate {
                 throw new IllegalArgumentException();
             }
             doAdd(name, value);
+        }
+
+        public void add(String name, Integer value, Integer max) {
+            if (value == null) {
+                throw new NullPointerException();
+            }
+            if (max != null && value > max) {
+                throw new IllegalArgumentException("Value is bigger than max");
+            }
+            add(name, value);
         }
 
         public void add(String name, Object value, Object defaultValue) {

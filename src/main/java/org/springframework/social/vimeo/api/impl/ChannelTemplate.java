@@ -88,7 +88,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(MODERATED, params.build(), ChannelInfos.class);
     }
@@ -99,7 +99,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
         params.add("channel_id", channelId);
         params.add("full_response", "1");
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(VIDEOS, params.build(), Videos.class);
     }
 
@@ -115,7 +115,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
         ParamsBuilder params = new ParamsBuilder();
         params.addIfNotNull("user_id", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(ALL, params.build(), Channels.class);
     }
@@ -132,7 +132,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
         ParamsBuilder params = new ParamsBuilder();
         params.add("channel_id", channelId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(SUBSCRIBERS, params.build(), People.class);
     }
 
@@ -156,7 +156,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
         ParamsBuilder params = new ParamsBuilder();
         params.add("channel_id", channelId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(MODERATORS, params.build(), Moderators.class);
     }
 }

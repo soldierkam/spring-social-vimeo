@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
  * Date: 2/3/12
  * Time: 6:04 PM
  */
-class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
+public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
 
     private AlbumOperations albumOperations;
     private VideoOperations videoOperations;
@@ -25,6 +25,7 @@ class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     private UploadOperations uploadOperations;
     private GroupOperations groupOperations;
     private PeopleOperations peopleOperations;
+    private OAuthOperations authOperations;
     private ObjectMapper objectMapper;
 
     public VimeoTemplate() {
@@ -48,6 +49,7 @@ class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
         uploadOperations = new UploadTemplate(getRestTemplate(), objectMapper);
         groupOperations = new GroupTemplate(getRestTemplate(), objectMapper);
         peopleOperations = new PeopleTemplate(getRestTemplate(), objectMapper);
+        authOperations = new OAuthTemplate(getRestTemplate(), objectMapper);
     }
 
     @Override
@@ -93,6 +95,11 @@ class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     @Override
     public PeopleOperations peopleOperations() {
         return peopleOperations;
+    }
+
+    @Override
+    public OAuthOperations authOperations() {
+        return authOperations;
     }
 
     @Override

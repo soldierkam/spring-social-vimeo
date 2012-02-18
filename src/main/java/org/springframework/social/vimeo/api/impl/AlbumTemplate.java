@@ -105,7 +105,7 @@ class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
     public Videos watchLater(Integer pageNumber, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.addIfNotNull("page", pageNumber);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(WATCH_LATER_LIST, params.build(), Videos.class);
     }
 
@@ -154,7 +154,7 @@ class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
     public Albums all(Integer pageNumber, Integer perPage, String userId, AlbumsSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
         params.addIfNotNull("page", pageNumber);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         params.add("user_id", userId);
         return getObject(LIST, params.build(), Albums.class);
@@ -180,7 +180,7 @@ class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
     public Videos videos(String albumId, Integer page, Integer perPage, String password) {
         ParamsBuilder params = new ParamsBuilder();
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("password", password);
         params.add("album_id", albumId);
         return getObject(VIDEO_LIST, params.build(), Videos.class);

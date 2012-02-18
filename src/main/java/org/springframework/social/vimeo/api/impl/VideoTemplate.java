@@ -40,6 +40,10 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     private final static VimeoMethod CHANGE_PRIVACY = new VimeoMethodImpl("vimeo.videos.setPrivacy");
     private final static VimeoMethod CHANGE_DOWNLOAD_PRIVACY = new VimeoMethodImpl("vimeo.videos.setDownloadPrivacy");
     private final static VimeoMethod USERS_VIDEOS = new VimeoMethodImpl("vimeo.videos.getAll");
+    private final static VimeoMethod DELETE_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.deleteComment");
+    private final static VimeoMethod EDIT_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.editComment");
+    private final static VimeoMethod LIST_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.getList", "comment");
+    private final static VimeoMethod ADD_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.addComment");
 
     public VideoTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         super(restTemplate, mapper);
@@ -51,7 +55,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         params.add("full_response", "1");
         params.add("query", query);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         params.addIfNotNull("userId", userId);
         return getObject(SEARCH_METHOD, params.build(), Videos.class);
@@ -79,7 +83,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         params.add("full_response", "1");
         params.add("userId", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(APPEARS_IN, params.build(), Videos.class);
     }
@@ -97,7 +101,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         params.add("full_response", "1");
         params.add("userId", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(LIKES, params.build(), Videos.class);
     }
@@ -108,7 +112,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         params.add("full_response", "1");
         params.add("userId", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(UPLOADED, params.build(), Videos.class);
     }
@@ -153,7 +157,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         ParamsBuilder params = new ParamsBuilder();
         params.add("userId", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(SUBSCRIPTIONS, params.build(), Videos.class);
     }
 
@@ -170,7 +174,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         params.add("tag", tag);
         params.add("full_response", "1");
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(FIND_BY_TAG, params.build(), Videos.class);
     }
@@ -213,7 +217,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
         return getObject(USERS_VIDEOS, params.build(), Videos.class);
     }
@@ -223,7 +227,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(CAST, params.build(), Casts.class);
     }
 
@@ -232,7 +236,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(LIKERS, params.build(), Moderators.class);
     }
 
@@ -267,5 +271,40 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
         return getObjects(THUMBNAILS, params.build(), Image.class);
+    }
+
+    @Override
+    public void editComment(String videoId, String commentId, String text) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        params.add("comment_id", commentId);
+        params.add("comment_text", text);
+        doMethod(EDIT_COMMENT, params.build());
+    }
+
+    @Override
+    public void deleteComment(String videoId, String commentId) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        params.add("comment_id", commentId);
+        doMethod(DELETE_COMMENT, params.build());
+    }
+
+    @Override
+    public Comments videoComment(String videoId, Integer page, Integer perPage) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        params.add("page", page);
+        params.add("per_page", perPage);
+        return getObject(LIST_COMMENT, params.build(), Comments.class);
+    }
+
+    @Override
+    public String addComment(String videoId, String replyToCommentId, String text) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        params.addIfNotNull("reply_to_comment_id", replyToCommentId);
+        params.add("comment_text", text);
+        return doAction(ADD_COMMENT, params.build());
     }
 }

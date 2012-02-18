@@ -13,6 +13,8 @@ public interface PeopleOperations {
 
     /**
      * Get information about a user.
+     *
+     * @param userId User id or NULL if you want get current user.
      */
     User info(String userId);
 

@@ -35,7 +35,7 @@ class ActivityTemplate extends AbstractVimeoTemplate implements ActivityOperatio
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(HAPPENED, params.build(), Activities.class);
     }
 
@@ -44,7 +44,7 @@ class ActivityTemplate extends AbstractVimeoTemplate implements ActivityOperatio
         ParamsBuilder params = new ParamsBuilder();
         params.add("user_id", userId);
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(DID, params.build(), Activities.class);
     }
 }

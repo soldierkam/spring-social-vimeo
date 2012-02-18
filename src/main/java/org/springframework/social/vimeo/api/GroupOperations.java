@@ -1,8 +1,6 @@
 package org.springframework.social.vimeo.api;
 
-import org.springframework.social.vimeo.api.model.GroupModerators;
-import org.springframework.social.vimeo.api.model.Groups;
-import org.springframework.social.vimeo.api.model.VideoCollectionSortMethod;
+import org.springframework.social.vimeo.api.model.*;
 
 /**
  * User: soldier
@@ -35,4 +33,44 @@ public interface GroupOperations {
      * Get a list of all public groups.
      */
     Groups all(String userId, VideoCollectionSortMethod sort, Integer page, Integer perPage);
+
+    /**
+     * Get information for a specific group.
+     */
+    Group info(String groupId);
+
+    /**
+     * Leave a group.
+     */
+    void leave(String groupId);
+
+    /**
+     * Get a list of the members of a group.
+     */
+    People members(String groupId);
+
+    /**
+     * Get a list of the videos added to a group.
+     */
+    Videos videos(String groupId, VideosInGroupSortMethod sort, Integer page, Integer perPage);
+
+    /**
+     * Remove a video from a group.
+     */
+    void removeVideo(String groupId, String videoId);
+
+    /**
+     * Get a list of the comments on a video in a group.
+     */
+    Comments videoComments(String groupId, String videoId, Integer page, Integer perPage);
+
+    /**
+     * Get a list of comments in a group forum topic.
+     */
+    Comments topicComments(String groupId, String topicId, Integer page, Integer perPage);
+
+    /**
+     * Get a list of topics in a group forum.
+     */
+    Topics topics(String groupId, Integer page, Integer perPage);
 }

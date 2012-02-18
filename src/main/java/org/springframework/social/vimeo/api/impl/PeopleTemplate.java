@@ -31,7 +31,7 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     @Override
     public User info(String userId) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addIfNotNull("user_id", userId);
         return getObject(INFO, params.build(), User.class);
     }
 
@@ -83,7 +83,7 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     public Subscriptions subscriptions(Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.addIfNotNull("page", page);
-        params.addIfNotNull("per_page", perPage);
+        params.addIfNotNull("per_page", perPage, 50);
         return getObject(SUBSCRIPTIONS, params.build(), Subscriptions.class);
     }
 }

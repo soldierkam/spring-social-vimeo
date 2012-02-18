@@ -136,4 +136,25 @@ public interface VideoOperations {
      * Get all videos credited to a user (both uploaded and appears).
      */
     Videos videos(String userId, Integer page, Integer perPage, VideosSortMethod sortBy);
+
+    /**
+     * Edit the text of a comment posted to a video.
+     */
+    void editComment(String videoId, String commentId, String text);
+
+    /**
+     * Delete a specific comment from a video.
+     */
+    void deleteComment(String videoId, String commentId);
+
+    /**
+     * Get a list of the comments on a video.
+     */
+    Comments videoComment(String videoId, Integer page, Integer perPage);
+
+    /**
+     * Add a comment to a video.
+     */
+    String addComment(String videoId, String replyToCommentId, String text);
 }
+
