@@ -120,10 +120,12 @@ class AbstractVimeoTemplate {
         }
 
         public void addIfNotNull(String name, Object value) {
-            if (value == null || name == null) {
+            if (name == null) {
                 throw new IllegalArgumentException();
             }
-            doAdd(name, value);
+            if (value != null) {
+                doAdd(name, value);
+            }
         }
 
         public void add(String name, Object value) {

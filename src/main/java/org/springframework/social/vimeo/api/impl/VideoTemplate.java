@@ -1,6 +1,8 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.social.OperationNotPermittedException;
+import org.springframework.social.vimeo.*;
 import org.springframework.social.vimeo.api.VideoOperations;
 import org.springframework.social.vimeo.api.model.*;
 import org.springframework.web.client.RestTemplate;
@@ -15,35 +17,174 @@ import java.util.List;
  */
 class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
 
-    private final static VimeoMethod SEARCH_METHOD = new VimeoMethodImpl("vimeo.videos.search", "videos");
-    private final static VimeoMethod ADD_CAST = new VimeoMethodImpl("vimeo.videos.addCast");
-    private final static VimeoMethod REMOVE_CAST = new VimeoMethodImpl("vimeo.videos.removeCast");
-    private final static VimeoMethod CAST = new VimeoMethodImpl("vimeo.videos.getCast", "cast");
-    private final static VimeoMethod CLEAR_TAGS = new VimeoMethodImpl("vimeo.videos.clearTags");
-    private final static VimeoMethod REMOVE_TAG = new VimeoMethodImpl("vimeo.videos.removeTag");
-    private final static VimeoMethod ADD_TAGS = new VimeoMethodImpl("vimeo.videos.addTags");
-    private final static VimeoMethod APPEARS_IN = new VimeoMethodImpl("vimeo.videos.getAppearsIn");
-    private final static VimeoMethod COLLECTIONS = new VimeoMethodImpl("vimeo.videos.getCollections", "collection");
-    private final static VimeoMethod LIKES = new VimeoMethodImpl("vimeo.videos.getLikes");
-    private final static VimeoMethod LIKERS = new VimeoMethodImpl("vimeo.videos.getLikers");
-    private final static VimeoMethod UPLOADED = new VimeoMethodImpl("vimeo.videos.getUploaded");
-    private final static VimeoMethod CHANGE_LICENSE = new VimeoMethodImpl("vimeo.videos.setLicense");
-    private final static VimeoMethod CHANGE_TITLE = new VimeoMethodImpl("vimeo.videos.setTitle");
-    private final static VimeoMethod ADD_PHOTOS = new VimeoMethodImpl("vimeo.videos.addPhotos");
-    private final static VimeoMethod DELETE = new VimeoMethodImpl("vimeo.videos.delete");
-    private final static VimeoMethod SUBSCRIPTIONS = new VimeoMethodImpl("vimeo.videos.getSubscriptions");
-    private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.videos.getInfo");
-    private final static VimeoMethod THUMBNAILS = new VimeoMethodImpl("vimeo.videos.getThumbnailUrls", "thumbnails");
+    private final static VimeoMethod SEARCH_METHOD = new VimeoMethodImpl("vimeo.videos.search", "videos") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod ADD_CAST = new VimeoMethodImpl("vimeo.videos.addCast") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod REMOVE_CAST = new VimeoMethodImpl("vimeo.videos.removeCast") {
+        {
+            add(1, UserNotFoundException.class);
+            add(2, UserNotInCastException.class);
+            add(3, OwnerCannotDoThisException.class);
+        }
+    };
+    private final static VimeoMethod CAST = new VimeoMethodImpl("vimeo.videos.getCast", "cast") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod CLEAR_TAGS = new VimeoMethodImpl("vimeo.videos.clearTags") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod REMOVE_TAG = new VimeoMethodImpl("vimeo.videos.removeTag") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, TagNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod ADD_TAGS = new VimeoMethodImpl("vimeo.videos.addTags") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod APPEARS_IN = new VimeoMethodImpl("vimeo.videos.getAppearsIn") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod COLLECTIONS = new VimeoMethodImpl("vimeo.videos.getCollections", "collection") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod LIKES = new VimeoMethodImpl("vimeo.videos.getLikes") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod LIKERS = new VimeoMethodImpl("vimeo.videos.getLikers") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod UPLOADED = new VimeoMethodImpl("vimeo.videos.getUploaded") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod CHANGE_LICENSE = new VimeoMethodImpl("vimeo.videos.setLicense") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, InvalidLicenseException.class);
+        }
+    };
+    private final static VimeoMethod CHANGE_TITLE = new VimeoMethodImpl("vimeo.videos.setTitle") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, BlankTitleException.class);
+        }
+    };
+    private final static VimeoMethod ADD_PHOTOS = new VimeoMethodImpl("vimeo.videos.addPhotos") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod DELETE = new VimeoMethodImpl("vimeo.videos.delete") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod SUBSCRIPTIONS = new VimeoMethodImpl("vimeo.videos.getSubscriptions") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.videos.getInfo") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod THUMBNAILS = new VimeoMethodImpl("vimeo.videos.getThumbnailUrls", "thumbnails") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
     private final static VimeoMethod FIND_BY_TAG = new VimeoMethodImpl("vimeo.videos.getByTag");
-    private final static VimeoMethod CHANGE_LIKE = new VimeoMethodImpl("vimeo.videos.setLike");
-    private final static VimeoMethod CHANGE_DESCRIPTION = new VimeoMethodImpl("vimeo.videos.setDescription");
-    private final static VimeoMethod CHANGE_PRIVACY = new VimeoMethodImpl("vimeo.videos.setPrivacy");
-    private final static VimeoMethod CHANGE_DOWNLOAD_PRIVACY = new VimeoMethodImpl("vimeo.videos.setDownloadPrivacy");
-    private final static VimeoMethod USERS_VIDEOS = new VimeoMethodImpl("vimeo.videos.getAll");
-    private final static VimeoMethod DELETE_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.deleteComment");
-    private final static VimeoMethod EDIT_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.editComment");
-    private final static VimeoMethod LIST_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.getList", "comment");
-    private final static VimeoMethod ADD_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.addComment");
+    private final static VimeoMethod CHANGE_LIKE = new VimeoMethodImpl("vimeo.videos.setLike") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, OwnerCannotDoThisException.class);
+        }
+    };
+    private final static VimeoMethod CHANGE_DESCRIPTION = new VimeoMethodImpl("vimeo.videos.setDescription") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, BlankDescriptionException.class);
+        }
+    };
+    private final static VimeoMethod CHANGE_PRIVACY = new VimeoMethodImpl("vimeo.videos.setPrivacy") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, UserNotPlusException.class);
+        }
+    };
+    private final static VimeoMethod CHANGE_DOWNLOAD_PRIVACY = new VimeoMethodImpl("vimeo.videos.setDownloadPrivacy") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod USERS_VIDEOS = new VimeoMethodImpl("vimeo.videos.getAll") {
+        {
+            add(1, UserNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod DELETE_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.deleteComment") {
+        {
+            add(1, UserNotFoundException.class);
+            add(2, CommentNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod EDIT_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.editComment") {
+        {
+            add(1, UserNotFoundException.class);
+            add(2, CommentNotFoundException.class);
+            add(3, BlankCommentException.class);
+        }
+    };
+    private final static VimeoMethod LIST_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.getList", "comment") {
+        {
+            add(1, VideoNotFoundException.class);
+        }
+    };
+    private final static VimeoMethod ADD_COMMENT = new VimeoMethodImpl("vimeo.videos.comments.addComment") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, OperationNotPermittedException.class);
+            add(3, BlankCommentException.class);
+        }
+    };
+
+    private final static VimeoMethod GET_PRESETS = new VimeoMethodImpl("vimeo.videos.embed.getPresets", "preset") {
+        {
+            add(2, UserNotPlusException.class);
+        }
+    };
+
+    private final static VimeoMethod SET_PRESET = new VimeoMethodImpl("vimeo.videos.embed.setPreset") {
+        {
+            add(1, VideoNotFoundException.class);
+            add(2, UserNotPlusException.class);
+            add(3, InvalidEmbedPresetException.class);
+        }
+    };
 
     public VideoTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
         super(restTemplate, mapper);
@@ -291,12 +432,12 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     }
 
     @Override
-    public Comments videoComment(String videoId, Integer page, Integer perPage) {
+    public FullComments videoComment(String videoId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
         params.add("page", page);
         params.add("per_page", perPage);
-        return getObject(LIST_COMMENT, params.build(), Comments.class);
+        return getObject(LIST_COMMENT, params.build(), FullComments.class);
     }
 
     @Override
@@ -306,5 +447,21 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         params.addIfNotNull("reply_to_comment_id", replyToCommentId);
         params.add("comment_text", text);
         return doAction(ADD_COMMENT, params.build());
+    }
+
+    @Override
+    public void changePreset(String videoId, Integer presetId) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.add("video_id", videoId);
+        params.add("preset_id", presetId);
+        doMethod(SET_PRESET, params.build());
+    }
+
+    @Override
+    public Presets presets(Integer page, Integer perPage) {
+        ParamsBuilder params = new ParamsBuilder();
+        params.addIfNotNull("page", page);
+        params.addIfNotNull("per_page", perPage, 50);
+        return getObject(GET_PRESETS, params.build(), Presets.class);
     }
 }

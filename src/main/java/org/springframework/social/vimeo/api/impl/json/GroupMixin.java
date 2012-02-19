@@ -31,7 +31,7 @@ abstract class GroupMixin {
             String name,
             @JsonProperty("created_on")
             Date createdOn,
-            @JsonProperty("modifed_on")
+            @JsonProperty("modified_on")
             Date modifiedOn,
             @JsonProperty("total_videos")
             Integer totalVideos,

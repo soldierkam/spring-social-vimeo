@@ -22,7 +22,7 @@ public class Credentials {
         return user;
     }
 
-    public Credentials(String token, PermissionLevel permission, SimplePerson user) {
+    protected Credentials(String token, PermissionLevel permission, SimplePerson user) {
 
         this.token = token;
         this.permission = permission;

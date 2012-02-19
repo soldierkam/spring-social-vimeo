@@ -15,7 +15,7 @@ public class FullComment extends Comment {
     private CommentType type;
     private ProPerson author;
 
-    public FullComment(Integer id, String content, Date createDate, URL permalink, Integer replyToCommentId, CommentType type, ProPerson author) {
+    protected FullComment(Integer id, String content, Date createDate, URL permalink, Integer replyToCommentId, CommentType type, ProPerson author) {
         super(id, content);
         this.createDate = createDate;
         this.permalink = permalink;

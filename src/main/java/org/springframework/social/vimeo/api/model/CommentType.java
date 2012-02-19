@@ -6,5 +6,6 @@ package org.springframework.social.vimeo.api.model;
  * Time: 19:18
  */
 public enum CommentType {
-    GROUP_CLIP
+    GROUP_CLIP,
+    GROUP_FORUM_TOPIC
 }

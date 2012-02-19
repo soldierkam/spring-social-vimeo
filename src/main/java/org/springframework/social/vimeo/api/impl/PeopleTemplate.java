@@ -18,9 +18,9 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     private final static VimeoMethod ADD_CONTACT = new VimeoMethodImpl("vimeo.people.addContact");
     private final static VimeoMethod REMOVE_CONTACT = new VimeoMethodImpl("vimeo.people.removeContact");
     private final static VimeoMethod ADD_SUBSCRIPTION = new VimeoMethodImpl("vimeo.people.addSubscription");
-    private final static VimeoMethod GET_PORTRAIT_URLS = new VimeoMethodImpl("vimeo.people.getPortraitUrls");
+    private final static VimeoMethod GET_PORTRAIT_URLS = new VimeoMethodImpl("vimeo.people.getPortraitUrls", "portraits");
     private final static VimeoMethod REMOVE_SUBSCRIPTION = new VimeoMethodImpl("vimeo.people.removeSubscription");
-    private final static VimeoMethod FIND = new VimeoMethodImpl("vimeo.people.findByEmail");
+    private final static VimeoMethod FIND = new VimeoMethodImpl("vimeo.people.findByEmail", "user");
     private final static VimeoMethod SUBSCRIPTIONS = new VimeoMethodImpl("vimeo.people.getSubscriptions", "subscriptions");
 
 

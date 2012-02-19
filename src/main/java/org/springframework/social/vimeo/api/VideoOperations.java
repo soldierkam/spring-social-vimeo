@@ -150,11 +150,21 @@ public interface VideoOperations {
     /**
      * Get a list of the comments on a video.
      */
-    Comments videoComment(String videoId, Integer page, Integer perPage);
+    FullComments videoComment(String videoId, Integer page, Integer perPage);
 
     /**
      * Add a comment to a video.
      */
     String addComment(String videoId, String replyToCommentId, String text);
+
+    /**
+     * Get the available embed presets for a user.
+     */
+    Presets presets(Integer page, Integer perPage);
+
+    /**
+     * Set the embed preferences of a video using an embed preset.
+     */
+    void changePreset(String videoId, Integer presetId);
 }
 

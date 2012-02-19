@@ -11,7 +11,7 @@ public class Groups extends Paging {
 
     private List<Group> groups;
 
-    public Groups(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Group> groups) {
+    protected Groups(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Group> groups) {
         super(onThisPage, page, perPage, total);
         this.groups = groups;
     }

@@ -7,15 +7,15 @@ import java.util.List;
  * Date: 16.02.12
  * Time: 19:19
  */
-public class Comments extends Paging {
-    private List<Comment> comments;
+public class FullComments extends Paging {
+    private List<FullComment> comments;
 
-    public Comments(Integer onThisPage, Integer page, Integer perPage, Integer total, List<Comment> comments) {
+    protected FullComments(Integer onThisPage, Integer page, Integer perPage, Integer total, List<FullComment> comments) {
         super(onThisPage, page, perPage, total);
         this.comments = comments;
     }
 
-    public List<Comment> getComments() {
+    public List<FullComment> getComments() {
         return comments;
     }
 }

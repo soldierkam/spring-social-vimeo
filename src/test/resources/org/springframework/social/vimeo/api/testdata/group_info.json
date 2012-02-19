@@ -1,0 +1,76 @@
+{
+  "generated_in":"0.0230",
+  "stat":"ok",
+  "groups":{
+    "on_this_page":"1",
+    "page":"1",
+    "perpage":"50",
+    "total":"1",
+    "group":{
+      "has_joined":"0",
+      "id":"35336",
+      "is_featured":"0",
+      "name":"World,       Travel & People HD",
+      "description":"'The World is our Home' and we can all learn many good things from each other. If we respect our world then we will all learn to respect each other. You can add your very best High Definition (HD) World,       Travel & People films here. 3D,       animations,       music,       nature,       sport,       wildlife,       time lapse,       space or about the environment are welcome. Emphasis is on quality rather than quantity,       so please do not add more than one or two films by yourself at any one time otherwise I guarantee nobody will probably watch it,        Enjoy!!! :))\n\nSome of the best films added to our group will also feature on our World HD Channel. There are already nearly 2000 excellent films there. Check it out and subscribe to it today! :))\nhttp:\/\/vimeo.com\/channels\/worldhd (World,       Travel & People HD Channel)\nSome other great Groups & Channels;\nhttp:\/\/vimeo.com\/groups\/thegoodstuff (Great films & talent)\nhttp:\/\/vimeo.com\/channels\/iphonehd (Awesome IPhone films)\nhttp:\/\/vimeo.com\/channels\/tfa30 (My Top 30)\nhttp:\/\/vimeo.com\/channels\/latino (Latin American and Hispanic themes)\nhttp:\/\/vimeo.com\/groups\/mobilehd (iPhone and Mobile HD group)\nhttp:\/\/vimeo.com\/channels\/tfa (a plug for some of my best work! :))\ntwitter.com\/thefilmartist\nhttp:\/\/www.facebook.com\/theFilmArtistHD",
+      "created_on":"2010-02-20 16:33:30",
+      "modified_on":"2012-02-18 20:30:41",
+      "total_videos":"15057",
+      "total_members":"4340",
+      "total_threads":"35",
+      "total_files":"0",
+      "total_events":"2",
+      "url":[
+        "http:\/\/vimeo.com\/groups\/worldhd"
+      ],      "logo_url":"http:\/\/groupheader.vimeo.com.s3.amazonaws.com\/684\/6846_980.jpg",
+      "thumbnail_url":"http:\/\/b.vimeocdn.com\/ts\/254\/244\/254244312_200.jpg",
+      "permissions":{
+        "can_users_apply":"1",
+        "group_type":"public",
+        "who_can_add_vids":"all",
+        "who_can_comment":"all",
+        "who_can_create_events":"all",
+        "who_can_invite":"members",
+        "who_can_upload":"members",
+        "who_can_use_forums":"all"
+      },
+      "calendar":{
+        "type":"vimeo"
+      },
+      "creator":{
+        "display_name":"The Film Artist",
+        "id":"2933888",
+        "is_plus":"1",
+        "is_pro":"0",
+        "is_staff":"0",
+        "profileurl":"http:\/\/vimeo.com\/thefilmartist",
+        "realname":"The Film Artist",
+        "username":"thefilmartist",
+        "videosurl":"http:\/\/vimeo.com\/thefilmartist\/videos",
+        "portraits":{
+          "portrait":[
+            {
+              "height":"30",
+              "width":"30",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/328\/328862_30.jpg"
+            },
+            {
+              "height":"75",
+              "width":"75",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/328\/328862_75.jpg"
+            },
+            {
+              "height":"100",
+              "width":"100",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/328\/328862_100.jpg"
+            },
+            {
+              "height":"300",
+              "width":"300",
+              "_content":"http:\/\/b.vimeocdn.com\/ps\/328\/328862_300.jpg"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

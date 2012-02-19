@@ -8,14 +8,14 @@ import java.util.List;
  * Time: 21:39
  */
 public class GroupModerators extends Paging {
-    private List<GroupModerator> moderators;
+    private List<ProPerson> moderators;
 
-    protected GroupModerators(Integer onThisPage, Integer page, Integer perPage, Integer total, List<GroupModerator> moderators) {
+    protected GroupModerators(Integer onThisPage, Integer page, Integer perPage, Integer total, List<ProPerson> moderators) {
         super(onThisPage, page, perPage, total);
         this.moderators = moderators;
     }
 
-    public List<GroupModerator> getModerators() {
+    public List<ProPerson> getModerators() {
         return moderators;
     }
 }

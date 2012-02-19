@@ -15,7 +15,7 @@ public class Video {
     private Integer id;
     private Boolean hd;
     private Boolean transcoding;
-    private Boolean license;
+    private CreativeCommonLicenseType license;
     private Privacy privacy;
     private String title;
     private String description;
@@ -30,7 +30,7 @@ public class Video {
     private ProPerson owner;
     private List<Image> thumbnails;
 
-    protected Video(Boolean allowAdds, String embedPrivacy, Integer id, Boolean hd, Boolean transcoding, Boolean license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, ProPerson owner) {
+    protected Video(Boolean allowAdds, String embedPrivacy, Integer id, Boolean hd, Boolean transcoding, CreativeCommonLicenseType license, Privacy privacy, String title, String description, Date uploadDate, Date modifiedDate, Integer numberOfLikes, Integer numberOfPlays, Integer numberOfComments, Integer width, Integer height, Integer duration, ProPerson owner) {
         this.allowAdds = allowAdds;
         this.embedPrivacy = embedPrivacy;
         this.id = id;
@@ -71,7 +71,7 @@ public class Video {
         return transcoding;
     }
 
-    public Boolean getLicense() {
+    public CreativeCommonLicenseType getLicense() {
         return license;
     }
 

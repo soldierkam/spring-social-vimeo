@@ -43,7 +43,7 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
             add(1, UserNotFoundException.class);
         }
     };
-    private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.groups.getInfo", "") {
+    private final static VimeoMethod INFO = new VimeoMethodImpl("vimeo.groups.getInfo", "groups") {
         {
             add(1, GroupNotFoundException.class);
         }
@@ -54,12 +54,12 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
             add(2, UserNotMemberException.class);
         }
     };
-    private final static VimeoMethod MEMBERS = new VimeoMethodImpl("vimeo.groups.getMembers") {
+    private final static VimeoMethod MEMBERS = new VimeoMethodImpl("vimeo.groups.getMembers", "members") {
         {
             add(1, GroupNotFoundException.class);
         }
     };
-    private final static VimeoMethod VIDEOS = new VimeoMethodImpl("vimeo.groups.getVideos") {
+    private final static VimeoMethod VIDEOS = new VimeoMethodImpl("vimeo.groups.getVideos", "videos") {
         {
             add(1, GroupNotFoundException.class);
         }
@@ -77,13 +77,13 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
             add(4, VideoNotAddedToGroupException.class);
         }
     };
-    private final static VimeoMethod TOPIC_COMMENTS = new VimeoMethodImpl("vimeo.groups.forums.getTopicComments") {
+    private final static VimeoMethod TOPIC_COMMENTS = new VimeoMethodImpl("vimeo.groups.forums.getTopicComments", "comments") {
         {
             add(1, GroupNotFoundException.class);
             add(2, TopicNotFoundException.class);
         }
     };
-    private final static VimeoMethod TOPICS = new VimeoMethodImpl("vimeo.groups.forums.getTopics") {
+    private final static VimeoMethod TOPICS = new VimeoMethodImpl("vimeo.groups.forums.getTopics", "topics") {
         {
             add(1, GroupNotFoundException.class);
         }
@@ -141,7 +141,8 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
     public Group info(String groupId) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("group_id", groupId);
-        return getObject(INFO, params.build(), Group.class);
+        Groups groups = getObject(INFO, params.build(), Groups.class);
+        return groups.getGroups().get(0);
     }
 
     @Override
@@ -178,23 +179,23 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
     }
 
     @Override
-    public Comments videoComments(String groupId, String videoId, Integer page, Integer perPage) {
+    public FullComments videoComments(String groupId, String videoId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("group_id", groupId);
         params.add("video_id", videoId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
-        return getObject(COMMENTS, params.build(), Comments.class);
+        return getObject(COMMENTS, params.build(), FullComments.class);
     }
 
     @Override
-    public Comments topicComments(String groupId, String topicId, Integer page, Integer perPage) {
+    public FullComments topicComments(String groupId, String topicId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("group_id", groupId);
         params.add("topic_id", topicId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
-        return getObject(TOPIC_COMMENTS, params.build(), Comments.class);
+        return getObject(TOPIC_COMMENTS, params.build(), FullComments.class);
     }
 
     @Override

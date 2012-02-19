@@ -1,10 +1,10 @@
 package org.springframework.social.vimeo.api.impl;
 
 import org.junit.Test;
-import org.springframework.social.vimeo.api.model.Subscription;
-import org.springframework.social.vimeo.api.model.Subscriptions;
-import org.springframework.social.vimeo.api.model.User;
+import org.springframework.social.vimeo.api.model.*;
 import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
@@ -63,6 +63,36 @@ public class PeopleTemplateTest extends AbstractVimeoApiTest {
             assertNotNull(subscription.getSubjectId());
             assertNotNull(subscription.getType());
         }
+    }
+
+    @Test
+    public void testGetPortraits() {
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("people_portraits"), responseHeaders));
+
+        List<Portrait> portraits = vimeo.peopleOperations().getPortraits("12312");
+        assertEquals(4, portraits.size());
+        for (Portrait portrait : portraits) {
+            assertNotNull(portrait.getUrl());
+            assertNotNull(portrait.getHeight());
+            assertNotNull(portrait.getWidth());
+        }
+    }
+
+    @Test
+    public void testFindByEmail() {
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("people_find"), responseHeaders));
+
+        SimplePerson person = vimeo.peopleOperations().findByEmail("me@gmail.com");
+        assertNotNull(person);
+        assertNotNull(person.getDisplayName());
+        assertNotNull(person.getId());
+        assertNotNull(person.getUsername());
     }
 
 }

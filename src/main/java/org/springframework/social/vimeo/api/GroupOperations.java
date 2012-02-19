@@ -62,12 +62,12 @@ public interface GroupOperations {
     /**
      * Get a list of the comments on a video in a group.
      */
-    Comments videoComments(String groupId, String videoId, Integer page, Integer perPage);
+    FullComments videoComments(String groupId, String videoId, Integer page, Integer perPage);
 
     /**
      * Get a list of comments in a group forum topic.
      */
-    Comments topicComments(String groupId, String topicId, Integer page, Integer perPage);
+    FullComments topicComments(String groupId, String topicId, Integer page, Integer perPage);
 
     /**
      * Get a list of topics in a group forum.

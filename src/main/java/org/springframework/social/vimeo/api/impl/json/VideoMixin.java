@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.springframework.social.vimeo.api.model.CreativeCommonLicenseType;
 import org.springframework.social.vimeo.api.model.Image;
 import org.springframework.social.vimeo.api.model.Privacy;
 import org.springframework.social.vimeo.api.model.ProPerson;
@@ -36,8 +37,8 @@ abstract class VideoMixin {
             @JsonProperty("is_transcoding")
             Boolean transcoding,
             @JsonProperty("license")
-            @JsonDeserialize(using = BooleanJsonDeserializer.class)
-            Boolean license,
+            @JsonDeserialize(using = CreativeCommonLicenseJsonDeserializer.class)
+            CreativeCommonLicenseType license,
             @JsonDeserialize(using = PrivacyJsonDeserilizer.class)
             @JsonProperty("privacy")
             Privacy privacy,

@@ -1,6 +1,8 @@
 package org.springframework.social.vimeo.api.impl.json;
 
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * User: soldier
@@ -8,5 +10,11 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * Time: 22:28
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CalendarMixin {
+abstract class CalendarMixin {
+    @JsonCreator
+    public CalendarMixin(
+            @JsonProperty(value = "type")
+            String type
+    ) {
+    }
 }
