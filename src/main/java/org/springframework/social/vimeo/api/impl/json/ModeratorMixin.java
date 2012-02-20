@@ -39,13 +39,12 @@ abstract class ModeratorMixin {
             @JsonProperty("username")
             String userName,
             @JsonProperty("videosurl")
-            URL videosUrl
+            URL videosUrl,
+            @JsonProperty("portraits")
+            @JsonDeserialize(using = PortraitJsonDeserilizer.class)
+            List<Portrait> portraits
     ) {
     }
-
-    @JsonProperty("portraits")
-    @JsonDeserialize(using = PortraitJsonDeserilizer.class)
-    List<Portrait> portraits;
 
     @JsonProperty("is_creator")
     @JsonDeserialize(using = BooleanJsonDeserializer.class)

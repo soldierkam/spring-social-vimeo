@@ -17,13 +17,14 @@ public class Person extends SimplePerson {
     private URL videosUrl;
     private List<Portrait> portraits;
 
-    protected Person(String id, String displayName, Boolean plus, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl) {
+    protected Person(String id, String displayName, Boolean plus, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl, List<Portrait> portraits) {
         super(id, userName, displayName);
         this.plus = plus;
         this.staff = staff;
         this.profileUrl = profileUrl;
         this.realName = realName;
         this.videosUrl = videosUrl;
+        this.portraits = portraits;
     }
 
     public Boolean getPlus() {

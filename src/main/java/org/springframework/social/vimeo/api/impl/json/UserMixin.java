@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.springframework.social.vimeo.api.model.Portrait;
 
 import java.net.URL;
 import java.util.Date;
@@ -66,7 +67,12 @@ abstract class UserMixin {
             @JsonProperty("number_of_channels")
             Integer channels,
             @JsonProperty("number_of_groups")
-            Integer groups
+            Integer groups,
+            @JsonProperty("portraits")
+            @JsonDeserialize(using = PortraitJsonDeserilizer.class)
+            List<Portrait> portraits
     ) {
     }
+
+
 }

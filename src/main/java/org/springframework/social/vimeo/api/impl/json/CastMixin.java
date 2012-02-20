@@ -41,12 +41,11 @@ abstract class CastMixin {
             @JsonProperty("videosurl")
             URL videosUrl,
             @JsonProperty("role")
-            String role
+            String role,
+            @JsonProperty("portraits")
+            @JsonDeserialize(using = PortraitJsonDeserilizer.class)
+            List<Portrait> portraits
     ) {
     }
-
-    @JsonProperty("portraits")
-    @JsonDeserialize(using = PortraitJsonDeserilizer.class)
-    List<Portrait> portraits;
 
 }

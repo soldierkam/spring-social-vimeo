@@ -4,8 +4,10 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.springframework.social.vimeo.api.model.Portrait;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * User: soldier
@@ -40,7 +42,10 @@ abstract class ContactMixin {
             URL videosUrl,
             @JsonProperty("is_mutual_contact")
             @JsonDeserialize(using = BooleanJsonDeserializer.class)
-            Boolean mutual
+            Boolean mutual,
+            @JsonProperty("portraits")
+            @JsonDeserialize(using = PortraitJsonDeserilizer.class)
+            List<Portrait> portraits
     ) {
     }
 

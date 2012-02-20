@@ -29,14 +29,13 @@ abstract class AbstractArrayJsonDeserializer<T> extends JsonDeserializer<List<T>
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDeserializationConfig(ctxt.getConfig());
         jp.setCodec(mapper);
-        if (jp.hasCurrentToken()) {
+        if(jp.hasCurrentToken()) {
             JsonNode dataNode = jp.readValueAsTree().get(fieldName);
-            if (dataNode != null) {
-                return (List<T>) mapper.readValue(dataNode, new TypeReference<List<T>>() {
-                });
-            }
+            return (List<T>) mapper.readValue(dataNode, refType());
         }
 
         return null;
     }
+
+    abstract protected TypeReference refType();
 }

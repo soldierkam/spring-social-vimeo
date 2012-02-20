@@ -1,6 +1,7 @@
 package org.springframework.social.vimeo.api.model;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * User: soldier
@@ -10,8 +11,8 @@ import java.net.URL;
 public class Cast extends ProPerson {
     private String cast;
 
-    protected Cast(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl, String cast) {
-        super(id, displayName, plus, pro, staff, profileUrl, realName, userName, videosUrl);
+    protected Cast(String id, String displayName, Boolean plus, Boolean pro, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl, String cast, List<Portrait> portraits) {
+        super(id, displayName, plus, pro, staff, profileUrl, realName, userName, videosUrl, portraits);
         this.cast = cast;
     }
 

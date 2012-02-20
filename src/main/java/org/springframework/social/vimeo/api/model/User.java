@@ -26,8 +26,8 @@ public class User extends Person {
     private Integer channels;
     private Integer groups;
 
-    protected User(String id, String displayName, Boolean plus, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl, Date createdOn, Boolean contact, Boolean subscribedTo, String location, List<URL> url, String biography, Integer contacts, Integer uploads, Integer likes, Integer videos, Integer videosAppearsIn, Integer albums, Integer channels, Integer groups) {
-        super(id, displayName, plus, staff, profileUrl, realName, userName, videosUrl);
+    protected User(String id, String displayName, Boolean plus, Boolean staff, URL profileUrl, String realName, String userName, URL videosUrl, Date createdOn, Boolean contact, Boolean subscribedTo, String location, List<URL> url, String biography, Integer contacts, Integer uploads, Integer likes, Integer videos, Integer videosAppearsIn, Integer albums, Integer channels, Integer groups, List<Portrait> portraits) {
+        super(id, displayName, plus, staff, profileUrl, realName, userName, videosUrl, portraits);
         this.createdOn = createdOn;
         this.contact = contact;
         this.subscribedTo = subscribedTo;

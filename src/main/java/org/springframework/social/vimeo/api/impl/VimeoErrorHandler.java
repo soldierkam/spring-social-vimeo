@@ -6,7 +6,10 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.*;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

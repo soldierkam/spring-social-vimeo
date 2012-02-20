@@ -48,6 +48,7 @@ public class PeopleTemplateTest extends AbstractVimeoApiTest {
         assertEquals("http://vimeo.com/sencha", user.getProfileUrl().toString());
         assertEquals("http://vimeo.com/sencha/videos", user.getVideosUrl().toString());
         assertFalse(CollectionUtils.isEmpty(user.getPortraits()));
+        assertNotNull(user.getPortraits().get(0).getUrl().toString());
     }
 
     @Test
