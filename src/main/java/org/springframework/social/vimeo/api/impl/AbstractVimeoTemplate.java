@@ -1,5 +1,7 @@
 package org.springframework.social.vimeo.api.impl;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
@@ -12,8 +14,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: soldier
@@ -21,6 +26,8 @@ import java.util.List;
  * Time: 2:26 PM
  */
 class AbstractVimeoTemplate {
+
+    private final Log log = LogFactory.getLog(getClass());
 
     protected boolean secure = true;
     protected final RestTemplate restTemplate;
@@ -31,13 +38,30 @@ class AbstractVimeoTemplate {
         this.objectMapper = mapper;
     }
 
-    protected String getUri() {
-        return secure ? "https://vimeo.com/api/rest/v2" : "http://vimeo.com/api/rest/v2";
+    private String getUri(MultiValueMap<String, Object> params) {
+        StringBuilder url = new StringBuilder(secure ? "https://vimeo.com/api/rest/v2?" : "http://vimeo.com/api/rest/v2?");
+        for(Map.Entry<String, List<Object>> p : params.entrySet()){
+            for(Object value : p.getValue()){
+                url.append(encode(p.getKey())).append("=").append(encode(value.toString())).append("&");
+            }
+        }
+        return url.toString();
+    }
+    
+    private String encode(String e){
+        try{
+            return URLEncoder.encode(e, "UTF-8");
+        }catch (UnsupportedEncodingException exc){
+            throw new RuntimeException(exc);
+        }
     }
 
     protected <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         try {
-            JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+            if(log.isDebugEnabled()){
+                log.debug("Call " + method.name());
+            }
+            JsonNode node = restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
             JsonNode data = node.get(method.dataNodeName());
             return deserializeDataList(data, type);
         } catch (MethodSpecificErrorException exc) {
@@ -48,7 +72,10 @@ class AbstractVimeoTemplate {
 
     protected <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         try {
-            JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+            if(log.isDebugEnabled()){
+                log.debug("Call " + method.name());
+            }
+            JsonNode node = restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
             if (method.hasDataNodeName()) {
                 if (!node.has(method.dataNodeName())) {
                     throw new ApiException("Invalid JSON response: missing field \"" + method.dataNodeName() + "\"");
@@ -74,14 +101,20 @@ class AbstractVimeoTemplate {
 
     protected void doMethod(VimeoMethod method, MultiValueMap<String, Object> p) {
         try {
-            restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+            if(log.isDebugEnabled()){
+                log.debug("Call " + method.name());
+            }
+            restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
         } catch (MethodSpecificErrorException exc) {
             handleMethodSpecificError(exc, method);
         }
     }
 
     protected String doAction(VimeoMethod method, MultiValueMap<String, Object> p) {
-        JsonNode node = restTemplate.getForObject(getUri(), JsonNode.class, createParamsMap(method, p));
+        if(log.isDebugEnabled()){
+            log.debug("Call " + method.name());
+        }
+        JsonNode node = restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
         JsonNode arrayOfObject = node.get(method.dataNodeName());
         return arrayOfObject.get(0).get("id").getTextValue();
     }

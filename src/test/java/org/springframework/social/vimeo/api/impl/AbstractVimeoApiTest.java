@@ -5,7 +5,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.social.test.client.MockRestServiceServer;
+import org.springframework.social.test.client.RequestMatcher;
 
 import java.io.IOException;
 
@@ -47,6 +49,15 @@ public class AbstractVimeoApiTest {
             }
         }
         return resource;
+    }
+    
+    protected RequestMatcher requestTo(final String uri){
+        return new RequestMatcher() {
+            @Override
+            public void match(ClientHttpRequest request) throws IOException, AssertionError {
+                request.getURI().toString().startsWith(uri);
+            }
+        };
     }
 
 }
