@@ -1,6 +1,5 @@
 package org.springframework.social.vimeo.api.impl;
 
-import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.*;
@@ -55,9 +54,19 @@ public class VimeoErrorHandler extends DefaultResponseErrorHandler {
         if (super.hasError(response)) {
             return true;
         }
-        String content = IOUtils.toString(response.getBody());
+        String content = readAll(response.getBody());
         return ERROR_RESPONSE_PATTERN.matcher(content).find();
     }
+
+    private String readAll(InputStream in) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        StringBuilder sb = new StringBuilder();
+        while (reader.ready()) {
+            sb.append(reader.readLine());
+        }
+        return sb.toString();
+    }
+
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {

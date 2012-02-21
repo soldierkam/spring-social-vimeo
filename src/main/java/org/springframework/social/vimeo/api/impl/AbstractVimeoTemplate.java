@@ -30,35 +30,41 @@ class AbstractVimeoTemplate {
     private final Log log = LogFactory.getLog(getClass());
 
     protected boolean secure = true;
+    private final boolean authorized;
     protected final RestTemplate restTemplate;
     protected final ObjectMapper objectMapper;
 
-    protected AbstractVimeoTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
+    protected AbstractVimeoTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
         this.restTemplate = restTemplate;
         this.objectMapper = mapper;
+        this.authorized = authorized;
+    }
+
+    public boolean isAuthorized() {
+        return authorized;
     }
 
     private String getUri(MultiValueMap<String, Object> params) {
         StringBuilder url = new StringBuilder(secure ? "https://vimeo.com/api/rest/v2?" : "http://vimeo.com/api/rest/v2?");
-        for(Map.Entry<String, List<Object>> p : params.entrySet()){
-            for(Object value : p.getValue()){
+        for (Map.Entry<String, List<Object>> p : params.entrySet()) {
+            for (Object value : p.getValue()) {
                 url.append(encode(p.getKey())).append("=").append(encode(value.toString())).append("&");
             }
         }
         return url.toString();
     }
-    
-    private String encode(String e){
-        try{
+
+    private String encode(String e) {
+        try {
             return URLEncoder.encode(e, "UTF-8");
-        }catch (UnsupportedEncodingException exc){
+        } catch (UnsupportedEncodingException exc) {
             throw new RuntimeException(exc);
         }
     }
 
     protected <T> List<T> getObjects(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         try {
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Call " + method.name());
             }
             JsonNode node = restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
@@ -72,7 +78,7 @@ class AbstractVimeoTemplate {
 
     protected <T> T getObject(VimeoMethod method, MultiValueMap<String, Object> p, Class<T> type) {
         try {
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Call " + method.name());
             }
             JsonNode node = restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
@@ -101,7 +107,7 @@ class AbstractVimeoTemplate {
 
     protected void doMethod(VimeoMethod method, MultiValueMap<String, Object> p) {
         try {
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Call " + method.name());
             }
             restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
@@ -111,7 +117,7 @@ class AbstractVimeoTemplate {
     }
 
     protected String doAction(VimeoMethod method, MultiValueMap<String, Object> p) {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Call " + method.name());
         }
         JsonNode node = restTemplate.getForObject(getUri(createParamsMap(method, p)), JsonNode.class);
@@ -166,6 +172,17 @@ class AbstractVimeoTemplate {
                 throw new IllegalArgumentException();
             }
             doAdd(name, value);
+        }
+
+        public void addUser(String value) {
+            boolean userIsKnown = value != null || authorized;
+
+            if (!userIsKnown) {
+                throw new IllegalArgumentException();
+            }
+            if (value != null) {
+                doAdd("user_id", value);
+            }
         }
 
         public void add(String name, Integer value, Integer max) {

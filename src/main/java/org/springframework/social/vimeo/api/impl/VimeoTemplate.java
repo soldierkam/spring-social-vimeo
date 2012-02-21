@@ -41,15 +41,15 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     private void initSubApis() {
         getRestTemplate().getMessageConverters().add(new StreamHttpMessageConverter());
         getRestTemplate().setErrorHandler(new VimeoErrorHandler(objectMapper));
-        albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper);
-        videoOperations = new VideoTemplate(getRestTemplate(), objectMapper);
-        activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper);
-        channelOperations = new ChannelTemplate(getRestTemplate(), objectMapper);
-        contactOperations = new ContactTemplate(getRestTemplate(), objectMapper);
-        uploadOperations = new UploadTemplate(getRestTemplate(), objectMapper);
-        groupOperations = new GroupTemplate(getRestTemplate(), objectMapper);
-        peopleOperations = new PeopleTemplate(getRestTemplate(), objectMapper);
-        authOperations = new OAuthTemplate(getRestTemplate(), objectMapper);
+        albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        videoOperations = new VideoTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        channelOperations = new ChannelTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        contactOperations = new ContactTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        uploadOperations = new UploadTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        groupOperations = new GroupTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        peopleOperations = new PeopleTemplate(getRestTemplate(), objectMapper, isAuthorized());
+        authOperations = new OAuthTemplate(getRestTemplate(), objectMapper, isAuthorized());
     }
 
     @Override

@@ -25,8 +25,8 @@ class UploadTemplate extends AbstractVimeoTemplate implements UploadOperations {
     private final static VimeoMethod COMPLETE = new VimeoMethodImpl("vimeo.videos.upload.complete", "");
     private final static VimeoMethod CONFIRM = new VimeoMethodImpl("vimeo.videos.upload.confirm", "");
 
-    public UploadTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
-        super(restTemplate, mapper);
+    public UploadTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
+        super(restTemplate, mapper, authorized);
     }
 
     @Override

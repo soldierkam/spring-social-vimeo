@@ -71,8 +71,8 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
         }
     };
 
-    public ChannelTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
-        super(restTemplate, mapper);
+    public ChannelTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
+        super(restTemplate, mapper, authorized);
     }
 
     @Override

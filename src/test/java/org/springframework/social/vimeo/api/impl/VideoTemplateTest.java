@@ -7,7 +7,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.social.test.client.RequestMatchers.*;
+import static org.springframework.social.test.client.RequestMatchers.headerContains;
+import static org.springframework.social.test.client.RequestMatchers.method;
 import static org.springframework.social.test.client.ResponseCreators.withResponse;
 
 /**
@@ -80,6 +81,23 @@ public class VideoTemplateTest extends AbstractVimeoApiTest {
             assertNotNull(p.getPlus());
             assertFalse(p.getPro());
             assertFalse(p.getStaff());
+        }
+    }
+
+    @Test
+    public void testLikes() {
+        mockServer.expect(requestTo("https://vimeo.com/api/rest/v2"))
+                .andExpect(method(GET))
+                .andExpect(headerContains("Authorization", "OAuth oauth_version"))
+                .andRespond(withResponse(jsonResource("video_likes"), responseHeaders));
+
+        Videos videos = vimeo.videoOperations().likes(null, null, null, null);
+        assertEquals(Integer.valueOf(1), videos.getTotal());
+        for (Video v : videos.getVideos()) {
+            assertNotNull(v.getTitle());
+            assertNotNull(v.getOwner());
+            assertNotNull(v.getPrivacy());
+            assertNotNull(v.getThumbnails());
         }
     }
 }

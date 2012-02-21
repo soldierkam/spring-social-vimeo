@@ -65,7 +65,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
             add(1, VideoNotFoundException.class);
         }
     };
-    private final static VimeoMethod LIKES = new VimeoMethodImpl("vimeo.videos.getLikes") {
+    private final static VimeoMethod LIKES = new VimeoMethodImpl("vimeo.videos.getLikes", "videos") {
         {
             add(1, UserNotFoundException.class);
         }
@@ -186,8 +186,9 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
         }
     };
 
-    public VideoTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
-        super(restTemplate, mapper);
+
+    public VideoTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
+        super(restTemplate, mapper, authorized);
     }
 
     @Override
@@ -240,7 +241,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     public Videos likes(String userId, Integer page, Integer perPage, VideosSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("full_response", "1");
-        params.add("userId", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);

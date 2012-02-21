@@ -31,8 +31,8 @@ class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations
     };
     private final static VimeoMethod ONLINE = new VimeoMethodImpl("vimeo.contacts.getOnline", "contacts");
 
-    public ContactTemplate(RestTemplate restTemplate, ObjectMapper mapper) {
-        super(restTemplate, mapper);
+    public ContactTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
+        super(restTemplate, mapper, authorized);
     }
 
     @Override
