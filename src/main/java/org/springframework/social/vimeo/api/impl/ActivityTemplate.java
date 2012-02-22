@@ -33,7 +33,7 @@ class ActivityTemplate extends AbstractVimeoTemplate implements ActivityOperatio
     @Override
     public Activities happenedToUser(String userId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
         return getObject(HAPPENED, params.build(), Activities.class);
@@ -42,7 +42,7 @@ class ActivityTemplate extends AbstractVimeoTemplate implements ActivityOperatio
     @Override
     public Activities did(String userId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
         return getObject(DID, params.build(), Activities.class);

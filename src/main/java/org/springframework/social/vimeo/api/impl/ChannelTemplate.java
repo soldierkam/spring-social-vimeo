@@ -86,7 +86,7 @@ class ChannelTemplate extends AbstractVimeoTemplate implements ChannelOperations
     @Override
     public ChannelInfos moderated(String userId, Integer page, Integer perPage, VideoCollectionSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);

@@ -38,7 +38,7 @@ class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations
     @Override
     public Contacts all(String userId, Integer page, Integer perPage, ContactSort sortBy) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("perpage", perPage, 50);
         params.addIfNotNull("sort", sortBy);
@@ -48,7 +48,7 @@ class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations
     @Override
     public Contacts whoAdded(String userId, Integer page, Integer perPage, ContactSort sortBy) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("perpage", perPage, 50);
         params.addIfNotNull("sort", sortBy);
@@ -58,7 +58,7 @@ class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations
     @Override
     public Contacts mutual(String userId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("perpage", perPage);
         return getObject(MUTUAL, params.build(), Contacts.class);
@@ -67,7 +67,7 @@ class ContactTemplate extends AbstractVimeoTemplate implements ContactOperations
     @Override
     public Contacts online(String userId, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("perpage", perPage);
         return getObject(ONLINE, params.build(), Contacts.class);

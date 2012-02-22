@@ -156,7 +156,7 @@ class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
         params.addIfNotNull("page", pageNumber);
         params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);
-        params.add("user_id", userId);
+        params.addUser(userId);
         return getObject(LIST, params.build(), Albums.class);
     }
 

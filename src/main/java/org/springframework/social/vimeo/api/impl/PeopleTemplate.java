@@ -38,21 +38,21 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     @Override
     public void addContact(String userId) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         doMethod(ADD_CONTACT, params.build());
     }
 
     @Override
     public void removeContact(String userId) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         doMethod(REMOVE_CONTACT, params.build());
     }
 
     @Override
     public void addSubscription(String userId, List<SubscriptionType> type) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.add("type", type);
         doMethod(ADD_SUBSCRIPTION, params.build());
     }
@@ -60,7 +60,7 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     @Override
     public void removeSubscription(String userId, List<SubscriptionType> type) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.add("type", type);
         doMethod(REMOVE_SUBSCRIPTION, params.build());
     }
@@ -68,7 +68,7 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     @Override
     public List<Portrait> getPortraits(String userId) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         return getObjects(GET_PORTRAIT_URLS, params.build(), Portrait.class);
     }
 

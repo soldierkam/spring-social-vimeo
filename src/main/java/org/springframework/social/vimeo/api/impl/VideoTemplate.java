@@ -207,7 +207,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     public void addCast(String videoId, String userId, String role) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("role", role);
         doMethod(ADD_CAST, params.build());
     }
@@ -342,7 +342,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     public void removeCast(String videoId, String userId) {
         ParamsBuilder params = new ParamsBuilder();
         params.add("video_id", videoId);
-        params.add("user_id", userId);
+        params.addUser(userId);
         doMethod(REMOVE_CAST, params.build());
     }
 
@@ -357,7 +357,7 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     @Override
     public Videos videos(String userId, Integer page, Integer perPage, VideosSortMethod sortBy) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
         params.addIfNotNull("sort", sortBy);

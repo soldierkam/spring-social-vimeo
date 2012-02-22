@@ -120,7 +120,7 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
     @Override
     public Groups addable(String userId, VideoCollectionSortMethod sort, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("sort", sort);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
@@ -130,7 +130,7 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
     @Override
     public Groups all(String userId, VideoCollectionSortMethod sort, Integer page, Integer perPage) {
         ParamsBuilder params = new ParamsBuilder();
-        params.add("user_id", userId);
+        params.addUser(userId);
         params.addIfNotNull("sort", sort);
         params.addIfNotNull("page", page);
         params.addIfNotNull("per_page", perPage, 50);
