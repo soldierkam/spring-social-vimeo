@@ -20,13 +20,13 @@ import java.util.List;
 class UploadTemplate extends AbstractVimeoTemplate implements UploadOperations {
 
     private final static VimeoMethod QUOTA = new VimeoMethodImpl("vimeo.videos.upload.getQuota", "");
-    private final static VimeoMethod TICKET = new VimeoMethodImpl("vimeo.videos.upload.getTicket", "");
+    private final static VimeoMethod TICKET = new VimeoMethodImpl("vimeo.videos.upload.getTicket", "ticket");
     private final static VimeoMethod VALID = new VimeoMethodImpl("vimeo.videos.upload.checkTicket", "");
     private final static VimeoMethod COMPLETE = new VimeoMethodImpl("vimeo.videos.upload.complete", "");
     private final static VimeoMethod CONFIRM = new VimeoMethodImpl("vimeo.videos.upload.confirm", "");
 
-    public UploadTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    public UploadTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override
@@ -37,7 +37,7 @@ class UploadTemplate extends AbstractVimeoTemplate implements UploadOperations {
     @Override
     public Ticket ticket(UploadMethod uploadMethod, String videoId) {
         ParamsBuilder params = new ParamsBuilder();
-        params.addIfNotNull("upload_method", uploadMethod);
+        params.addIfNotNull("upload_method", uploadMethod == null ? null : uploadMethod.name().toLowerCase());
         params.addIfNotNull("video_id", videoId);
         return getObject(TICKET, params.build(), Ticket.class);
     }

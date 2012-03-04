@@ -24,8 +24,8 @@ class PeopleTemplate extends AbstractVimeoTemplate implements PeopleOperations {
     private final static VimeoMethod SUBSCRIPTIONS = new VimeoMethodImpl("vimeo.people.getSubscriptions", "subscriptions");
 
 
-    PeopleTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    PeopleTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override

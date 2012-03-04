@@ -26,8 +26,8 @@ class ActivityTemplate extends AbstractVimeoTemplate implements ActivityOperatio
         }
     };
 
-    public ActivityTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    public ActivityTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override

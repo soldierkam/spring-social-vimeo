@@ -9,7 +9,8 @@ import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.social.test.client.RequestMatchers.*;
+import static org.springframework.social.test.client.RequestMatchers.headerContains;
+import static org.springframework.social.test.client.RequestMatchers.method;
 import static org.springframework.social.test.client.ResponseCreators.withResponse;
 
 /**
@@ -45,9 +46,9 @@ public class UploadTemplateTest extends AbstractVimeoApiTest {
                 .andRespond(withResponse(jsonResource("upload_ticket"), responseHeaders));
 
         Ticket ticket = vimeo.uploadOperations().ticket(null, null);
-        assertEquals("abcdef124567890", ticket.getId());
-        assertEquals("1.2.3.4", ticket.getHost());
-        assertEquals(new URL("http://1.2.3.4/upload?ticket_id=abcdef124567890"), ticket.getEndpoint());
+        assertEquals("a5e0ef1b0a5730efea859a3f8d009a2e", ticket.getId());
+        assertEquals("50.16.67.230", ticket.getHost());
+        assertEquals(new URL("http://50.16.67.230/upload_multi?ticket_id=a5e0ef1b0a5730efea859a3f8d009a2e"), ticket.getEndpoint());
         assertEquals(Long.valueOf(524288000l), ticket.getMaxFileSize());
     }
 }

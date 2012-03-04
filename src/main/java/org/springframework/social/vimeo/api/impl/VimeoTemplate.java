@@ -4,8 +4,10 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
+import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.vimeo.api.*;
 import org.springframework.social.vimeo.api.impl.json.VimeoModule;
+import org.springframework.social.vimeo.api.model.PermissionLevel;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +29,7 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
     private PeopleOperations peopleOperations;
     private OAuthOperations authOperations;
     private ObjectMapper objectMapper;
+    private Permission permission;
 
     public VimeoTemplate() {
         super();
@@ -38,18 +41,25 @@ public class VimeoTemplate extends AbstractOAuth1ApiBinding implements Vimeo {
         initSubApis();
     }
 
+    @Override
+    protected void configureRestTemplate(RestTemplate restTemplate) {
+        restTemplate.setErrorHandler(new VimeoErrorHandler(objectMapper));
+    }
+
     private void initSubApis() {
+        permission = new Permission(PermissionLevel.READ);
+        setRequestFactory(ClientHttpRequestFactorySelector.bufferRequests(getRestTemplate().getRequestFactory()));
         getRestTemplate().getMessageConverters().add(new StreamHttpMessageConverter());
-        getRestTemplate().setErrorHandler(new VimeoErrorHandler(objectMapper));
-        albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        videoOperations = new VideoTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        channelOperations = new ChannelTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        contactOperations = new ContactTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        uploadOperations = new UploadTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        groupOperations = new GroupTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        peopleOperations = new PeopleTemplate(getRestTemplate(), objectMapper, isAuthorized());
-        authOperations = new OAuthTemplate(getRestTemplate(), objectMapper, isAuthorized());
+
+        albumOperations = new AlbumTemplate(getRestTemplate(), objectMapper, permission);
+        videoOperations = new VideoTemplate(getRestTemplate(), objectMapper, permission);
+        activityOperations = new ActivityTemplate(getRestTemplate(), objectMapper, permission);
+        channelOperations = new ChannelTemplate(getRestTemplate(), objectMapper, permission);
+        contactOperations = new ContactTemplate(getRestTemplate(), objectMapper, permission);
+        uploadOperations = new UploadTemplate(getRestTemplate(), objectMapper, permission);
+        groupOperations = new GroupTemplate(getRestTemplate(), objectMapper, permission);
+        peopleOperations = new PeopleTemplate(getRestTemplate(), objectMapper, permission);
+        authOperations = new OAuthTemplate(getRestTemplate(), objectMapper, permission);
     }
 
     @Override

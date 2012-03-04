@@ -8,6 +8,7 @@ import org.codehaus.jackson.map.type.CollectionType;
 import org.codehaus.jackson.map.type.TypeFactory;
 import org.springframework.social.ApiException;
 import org.springframework.social.UncategorizedApiException;
+import org.springframework.social.vimeo.api.model.PermissionLevel;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -30,18 +31,22 @@ class AbstractVimeoTemplate {
     private final Log log = LogFactory.getLog(getClass());
 
     protected boolean secure = true;
-    private final boolean authorized;
+    private final Permission permission;
     protected final RestTemplate restTemplate;
     protected final ObjectMapper objectMapper;
 
-    protected AbstractVimeoTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
+    protected AbstractVimeoTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
         this.restTemplate = restTemplate;
         this.objectMapper = mapper;
-        this.authorized = authorized;
+        this.permission = permission;
     }
 
     public boolean isAuthorized() {
-        return authorized;
+        return permission.getLevel() != null;
+    }
+
+    public boolean isAuthorized(PermissionLevel level) {
+        return permission.getLevel().canDo(level);
     }
 
     private String getUri(MultiValueMap<String, Object> params) {
@@ -175,7 +180,7 @@ class AbstractVimeoTemplate {
         }
 
         public void addUser(String value) {
-            boolean userIsKnown = value != null || authorized;
+            boolean userIsKnown = value != null || permission.getLevel() != null;
 
             if (!userIsKnown) {
                 throw new IllegalArgumentException();

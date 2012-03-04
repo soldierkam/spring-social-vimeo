@@ -83,8 +83,8 @@ class AlbumTemplate extends AbstractVimeoTemplate implements AlbumOperations {
         }
     };
 
-    public AlbumTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    public AlbumTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override

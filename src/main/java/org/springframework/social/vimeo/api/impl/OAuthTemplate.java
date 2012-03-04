@@ -19,8 +19,8 @@ public class OAuthTemplate extends AbstractVimeoTemplate implements OAuthOperati
     }};
     private final static VimeoMethod CONVERT = new VimeoMethodImpl("vimeo.oauth.convertAuthToken", "");
 
-    public OAuthTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    public OAuthTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override

@@ -89,8 +89,8 @@ class GroupTemplate extends AbstractVimeoTemplate implements GroupOperations {
         }
     };
 
-    public GroupTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    public GroupTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override

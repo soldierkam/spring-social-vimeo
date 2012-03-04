@@ -30,6 +30,7 @@ public class VimeoErrorHandler extends DefaultResponseErrorHandler {
         commonErrors.put(96, InvalidAuthorizationException.class);//Invalid signature The api_sig passed was not valid.
         commonErrors.put(97, MissingAuthorizationException.class);//Missing signature A signature was not passed.
         commonErrors.put(98, InvalidAuthorizationException.class);//Login failed / Invalid auth token The login details or auth token passed were invalid.
+        commonErrors.put(99, OperationNotPermittedException.class);//Insufficient permissions. The user does not have permission to do that.
         commonErrors.put(100, InvalidAuthorizationException.class);//Invalid API Key The API key passed was not valid.
         commonErrors.put(105, InvalidAuthorizationException.class);//Service currently unavailable The requested service is temporarily unavailable.
         commonErrors.put(111, ApiException.class);//Format not found The requested response format was not found.

@@ -39,4 +39,13 @@ class Error {
     public String getMsg() {
         return msg;
     }
+
+    @Override
+    public String toString() {
+        return "Error{" +
+                "code=" + code +
+                ", expl='" + expl + '\'' +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

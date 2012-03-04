@@ -2,6 +2,7 @@ package org.springframework.social.vimeo.api.impl;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.social.ApiException;
 import org.springframework.social.vimeo.api.StreamingUploader;
 import org.springframework.social.vimeo.api.UploadOperations;
 import org.springframework.social.vimeo.api.model.Quota;
@@ -40,6 +41,9 @@ class StreamingUploaderImpl implements StreamingUploader {
         this.mime = mime;
         this.restTemplate = restTemplate;
         available = ticket.getMaxFileSize();
+        if (available == null) {
+            throw new ApiException("No space?");
+        }
     }
 
     @Override
@@ -77,7 +81,7 @@ class StreamingUploaderImpl implements StreamingUploader {
         headers.add("Content-Length", "0");
         headers.add("Content-Range", "bytes */*");
         HttpEntity<InputStream> body = new HttpEntity("", headers);
-        HttpEntity<?> response = restTemplate.exchange(ticket.getEndpoint().toString(), HttpMethod.PUT, body, null);
+        final HttpEntity<?> response = restTemplate.exchange(ticket.getEndpoint().toString(), HttpMethod.PUT, body, null);
         Range range = fetchRange(response);
         if (range.from != 0) {
             throw new RuntimeException();

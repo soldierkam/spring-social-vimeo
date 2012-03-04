@@ -187,8 +187,8 @@ class VideoTemplate extends AbstractVimeoTemplate implements VideoOperations {
     };
 
 
-    public VideoTemplate(RestTemplate restTemplate, ObjectMapper mapper, boolean authorized) {
-        super(restTemplate, mapper, authorized);
+    public VideoTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {
+        super(restTemplate, mapper, permission);
     }
 
     @Override
