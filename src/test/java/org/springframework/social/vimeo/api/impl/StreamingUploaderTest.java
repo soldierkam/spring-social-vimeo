@@ -7,7 +7,8 @@ import java.io.IOException;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.PUT;
-import static org.springframework.social.test.client.RequestMatchers.*;
+import static org.springframework.social.test.client.RequestMatchers.headerContains;
+import static org.springframework.social.test.client.RequestMatchers.method;
 import static org.springframework.social.test.client.ResponseCreators.withResponse;
 
 /**
@@ -38,7 +39,7 @@ public class StreamingUploaderTest extends AbstractVimeoApiTest {
                 .andRespond(withResponse(videoResource("video.mp4"), responseHeaders));
 
         //get size
-        responseHeaders.set("Range", "bytes=0-10");
+        responseHeaders.set("Range", "bytes=0-9");
         mockServer.expect(requestTo("http://1.2.3.4/upload?ticket_id=abcdef124567890"))
                 .andExpect(method(PUT))
                 .andExpect(headerContains("Authorization", "OAuth oauth_version"))

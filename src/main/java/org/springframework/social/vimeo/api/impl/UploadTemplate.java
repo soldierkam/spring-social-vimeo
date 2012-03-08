@@ -22,7 +22,7 @@ class UploadTemplate extends AbstractVimeoTemplate implements UploadOperations {
     private final static VimeoMethod QUOTA = new VimeoMethodImpl("vimeo.videos.upload.getQuota", "");
     private final static VimeoMethod TICKET = new VimeoMethodImpl("vimeo.videos.upload.getTicket", "ticket");
     private final static VimeoMethod VALID = new VimeoMethodImpl("vimeo.videos.upload.checkTicket", "");
-    private final static VimeoMethod COMPLETE = new VimeoMethodImpl("vimeo.videos.upload.complete", "");
+    private final static VimeoMethod COMPLETE = new VimeoMethodImpl("vimeo.videos.upload.complete", "ticket");
     private final static VimeoMethod CONFIRM = new VimeoMethodImpl("vimeo.videos.upload.confirm", "");
 
     public UploadTemplate(RestTemplate restTemplate, ObjectMapper mapper, Permission permission) {

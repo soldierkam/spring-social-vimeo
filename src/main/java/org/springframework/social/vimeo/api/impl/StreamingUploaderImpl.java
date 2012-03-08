@@ -30,7 +30,7 @@ class StreamingUploaderImpl implements StreamingUploader {
     private final String mime;
     private final RestTemplate restTemplate;
     private final UploadOperations uploadOperations;
-    private Long available;
+    private Long availableSpaceForVideoFile;
     private final Object monitor = new Object();
     private final static Pattern RANGE_HEADER = Pattern.compile("bytes=(\\d+)-(\\d+)");
 
@@ -40,36 +40,38 @@ class StreamingUploaderImpl implements StreamingUploader {
         this.ticket = ticket;
         this.mime = mime;
         this.restTemplate = restTemplate;
-        available = ticket.getMaxFileSize();
-        if (available == null) {
-            throw new ApiException("No space?");
-        }
+        availableSpaceForVideoFile = ticket.getMaxFileSize();
     }
 
     @Override
     public void send(File file) throws IOException {
-        short uploadCount = 0;
+        short uploadCounter = 0;
         final short maxUploadCount = 3;
         long fileSizeOnServer = 0;
         do {
-            uploadCount++;
+            uploadCounter++;
             doUpload(new FileInputStream(file), file.length(), fileSizeOnServer);
             fileSizeOnServer = verifiedSize(file.length());
-        } while (uploadCount <= maxUploadCount && fileSizeOnServer != file.length());
+        } while (uploadCounter <= maxUploadCount && fileSizeOnServer != file.length());
         uploadOperations.complete(ticket.getId(), file.getName());
     }
 
-    private void doUpload(InputStream stream, long size, long offset) throws IOException {
+    private void doUpload(InputStream stream, long streamSize, long offset) throws IOException {
         synchronized (monitor) {
-            if (available < size) {
+            if (availableSpaceForVideoFile < streamSize) {
                 throw new IOException("file too big");
             }
-            available -= size;
+            availableSpaceForVideoFile -= streamSize;
+        }
+        long httpContentLenght = streamSize - offset;
+        if (httpContentLenght <= 0) {
+            throw new ApiException("Illegal upload size: " + httpContentLenght);
         }
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>(5);
-        headers.add("Content-Length", Long.valueOf(size).toString());
+        headers.add("Content-Length", Long.toString(httpContentLenght));
         headers.add("Content-Type", mime);
         if (offset > 0) {
+            headers.add("Content-Range", Long.toString(offset + 1) + "-" + Long.toString(streamSize) + "/" + Long.toString(streamSize));
             stream.skip(offset);
         }
         HttpEntity<InputStream> body = new HttpEntity(stream, headers);
@@ -86,7 +88,7 @@ class StreamingUploaderImpl implements StreamingUploader {
         if (range.from != 0) {
             throw new RuntimeException();
         }
-        return range.to;
+        return range.to + 1;
     }
 
     private Range fetchRange(HttpEntity response) {
