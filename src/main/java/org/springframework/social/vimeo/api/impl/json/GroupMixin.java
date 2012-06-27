@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.springframework.social.vimeo.api.model.Calendar;
-import org.springframework.social.vimeo.api.model.Permissions;
+import org.springframework.social.vimeo.api.model.GroupPermissions;
 import org.springframework.social.vimeo.api.model.Person;
 
 import java.net.URL;
@@ -29,6 +29,8 @@ abstract class GroupMixin {
             Boolean featured,
             @JsonProperty("name")
             String name,
+            @JsonProperty("description")
+            String description,
             @JsonProperty("created_on")
             Date createdOn,
             @JsonProperty("modified_on")
@@ -45,8 +47,13 @@ abstract class GroupMixin {
             Integer totalEvents,
             @JsonProperty("url")
             List<URL> url,
+            @JsonProperty("logo_url")
+            URL logoUrl,
+            @JsonProperty("thumbnail_url")
+            URL thumbnailUrl,
             @JsonProperty("permissions")
-            Permissions permissions,
+            @JsonDeserialize(using = GroupPermissionsDeserializer.class)
+            GroupPermissions permissions,
             @JsonProperty("calendar")
             Calendar calendar,
             @JsonProperty("creator")
